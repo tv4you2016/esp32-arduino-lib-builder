@@ -12,14 +12,11 @@ fi
 #
 
 IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
-if [ -z "$IDF_PATH" ]; then
+if [ ! -d "$IDF_PATH" ]; then
 	echo "ESP-IDF is not installed! Installing local copy"
+	echo "git clone $IDF_REPO_URL -b $IDF_BRANCH"
+	git clone $IDF_REPO_URL -b $IDF_BRANCH
 	idf_was_installed="1"
-	if ! [ -d esp-idf ]; then
-                echo "git clone $IDF_REPO_URL -b $IDF_BRANCH"
-		git clone $IDF_REPO_URL -b $IDF_BRANCH
-	fi
-	export IDF_PATH="$AR_ROOT/esp-idf"
 fi
 
 # Next lines redirects ALWAYS to espressif git since this sha1 only exists there!!!
@@ -28,6 +25,20 @@ fi
 #    commit_predefined="1"
 #fi
 
+#
+# UPDATE ESP-IDF TOOLS AND MODULES
+#
+
+if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
+	git -C $IDF_PATH submodule update --init --recursive
+	$IDF_PATH/install.sh
+fi
+
+#
+# SETUP ESP-IDF ENV
+#
+
+source $IDF_PATH/export.sh
 export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
 export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD)
 
@@ -90,17 +101,3 @@ if [ "$GITHUB_EVENT_NAME" == "schedule" ] || [ "$GITHUB_EVENT_NAME" == "reposito
 	export AR_HAS_BRANCH
 	export AR_HAS_PR
 fi
-
-#
-# UPDATE IDF MODULES
-#
-
-if [ -x $idf_was_installed ]; then
-	echo "ESP-IDF is already installed at: $IDF_PATH"
-else
-	git -C $IDF_PATH submodule update --init --recursive
-	cd $IDF_PATH && python -m pip install -r requirements.txt
-fi
-cd "$AR_ROOT"
-$IDF_PATH/install.sh
-source $IDF_PATH/export.sh
