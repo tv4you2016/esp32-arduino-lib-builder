@@ -93,10 +93,12 @@ if [ $? -ne 0 ]; then exit 1; fi
 if [ ! -d "$AR_COMPS/esp_littlefs" ]; then
 	git clone $LITTLEFS_REPO_URL "$AR_COMPS/esp_littlefs" && \
     git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
+    git -C "$AR_COMPS/esp_littlefs" checkout 4ee5881509360d6c58b16bbc698218ee5e21b4d2
 else
 	git -C "$AR_COMPS/esp_littlefs" fetch && \
 	git -C "$AR_COMPS/esp_littlefs" pull --ff-only && \
     git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
+    git -C "$AR_COMPS/esp_littlefs" checkout 4ee5881509360d6c58b16bbc698218ee5e21b4d2
 fi
 if [ $? -ne 0 ]; then exit 1; fi
 
