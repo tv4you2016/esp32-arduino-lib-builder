@@ -34,7 +34,7 @@ AR_USER="tasmota"
 AR_REPO="$AR_USER/arduino-esp32"
 
 # Arduino branch to use
-AR_BRANCH="revert"
+AR_BRANCH="work"
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
 if [ -n $GITHUB_TOKEN ]; then
@@ -118,4 +118,3 @@ function git_create_pr(){ # git_create_pr <branch> <title>
 	local done_pr=`echo "$git_create_pr_res" | jq -r '.title'`
 	if [ ! "$done_pr" == "" ] && [ ! "$done_pr" == "null" ]; then echo 1; else echo 0; fi
 }
-
