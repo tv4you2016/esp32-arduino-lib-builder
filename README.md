@@ -16,12 +16,12 @@ are based on Arduino Core 2.0.3 and can be used with Platformio for the ESP32, E
 ```                  
 [platformio]
 platform = https://github.com/tasmota/platform-espressif32/releases/download/v.2.0.3/platform-espressif32-v.2.0.3.zip
-framework = arduino
+framework = arduino, idf
 ```
 and for the ESP32solo1 with
 ```
 [platformio]
 platform = https://github.com/tasmota/platform-espressif32/releases/download/v.2.0.3/platform-espressif32-solo1-v.2.0.3.zip
-framework = arduino
+framework = arduino, idf
 ```
 The frameworks are here [https://github.com/tasmota/arduino-esp32/releases](https://github.com/tasmota/arduino-esp32/releases)
