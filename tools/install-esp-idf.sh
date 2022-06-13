@@ -31,7 +31,7 @@ fi
 
 if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	git -C $IDF_PATH submodule update --init --recursive
-	$IDF_PATH/install.sh --non-interactive
+	$IDF_PATH/install.sh
 fi
 
 #
