@@ -2,12 +2,8 @@
 
 source ./tools/config.sh
 
-CAMERA_REPO_URL="https://github.com/espressif/esp32-camera.git"
 DL_REPO_URL="https://github.com/espressif/esp-dl.git"
 SR_REPO_URL="https://github.com/espressif/esp-sr.git"
-DSP_REPO_URL="https://github.com/espressif/esp-dsp.git"
-LITTLEFS_REPO_URL="https://github.com/joltwallet/esp_littlefs.git"
-TINYUSB_REPO_URL="https://github.com/hathach/tinyusb.git"
 
 #
 # CLONE/UPDATE ARDUINO
@@ -47,24 +43,6 @@ fi
 if [ $? -ne 0 ]; then exit 1; fi
 
 #
-# CLONE/UPDATE ESP32-CAMERA
-#
-
-#if [ ! -d "$AR_COMPS/esp32-camera" ]; then
-#	git clone $CAMERA_REPO_URL "$AR_COMPS/esp32-camera"
-#	git -C "$AR_COMPS/esp32-camera" checkout 8575d75b91c0387037b68b3a864ac6696f6e0a2e
-#else
-#	git -C "$AR_COMPS/esp32-camera" fetch && \
-#	git -C "$AR_COMPS/esp32-camera" pull --ff-only
-#	git -C "$AR_COMPS/esp32-camera" checkout 8575d75b91c0387037b68b3a864ac6696f6e0a2e
-#fi
-#this is a temp measure to fix build issue in recent IDF master
-#if [ -f "$AR_COMPS/esp32-camera/idf_component.yml" ]; then
-#	rm -rf "$AR_COMPS/esp32-camera/idf_component.yml"
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
-
-#
 # CLONE/UPDATE ESP-DL
 #
 
@@ -85,49 +63,5 @@ if [ $? -ne 0 ]; then exit 1; fi
 #else
 #	git -C "$AR_COMPS/esp-sr" fetch && \
 #	git -C "$AR_COMPS/esp-sr" pull --ff-only
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
-
-#
-# CLONE/UPDATE ESP-LITTLEFS
-#
-
-#if [ ! -d "$AR_COMPS/esp_littlefs" ]; then
-#	git clone $LITTLEFS_REPO_URL "$AR_COMPS/esp_littlefs" && \
-#    git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
-    #git -C "$AR_COMPS/esp_littlefs" checkout 4ee5881509360d6c58b16bbc698218ee5e21b4d2
-#else
-#	git -C "$AR_COMPS/esp_littlefs" fetch && \
-#	git -C "$AR_COMPS/esp_littlefs" pull --ff-only && \
-#    git -C "$AR_COMPS/esp_littlefs" submodule update --init --recursive
-#    #git -C "$AR_COMPS/esp_littlefs" checkout 4ee5881509360d6c58b16bbc698218ee5e21b4d2
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
-
-#
-# CLONE/UPDATE ESP-DSP
-#
-
-#if [ ! -d "$AR_COMPS/esp-dsp" ]; then
-#	git clone $DSP_REPO_URL "$AR_COMPS/esp-dsp"
-	# cml=`cat "$AR_COMPS/esp-dsp/CMakeLists.txt"`
-	# echo "if(IDF_TARGET STREQUAL \"esp32\" OR IDF_TARGET STREQUAL \"esp32s2\" OR IDF_TARGET STREQUAL \"esp32s3\")" > "$AR_COMPS/esp-dsp/CMakeLists.txt"
-	# echo "$cml" >> "$AR_COMPS/esp-dsp/CMakeLists.txt"
-	# echo "endif()" >> "$AR_COMPS/esp-dsp/CMakeLists.txt"
-#else
-#	git -C "$AR_COMPS/esp-dsp" fetch && \
-#	git -C "$AR_COMPS/esp-dsp" pull --ff-only
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
-
-#
-# CLONE/UPDATE TINYUSB
-#
-
-#if [ ! -d "$AR_COMPS/arduino_tinyusb/tinyusb" ]; then
-#	git clone $TINYUSB_REPO_URL "$AR_COMPS/arduino_tinyusb/tinyusb"
-#else
-#	git -C "$AR_COMPS/arduino_tinyusb/tinyusb" fetch && \
-#	git -C "$AR_COMPS/arduino_tinyusb/tinyusb" pull --ff-only
 #fi
 #if [ $? -ne 0 ]; then exit 1; fi
