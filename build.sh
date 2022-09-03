@@ -132,8 +132,6 @@ for component in `ls "$AR_COMPS"`; do
         echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/sdk/versions.txt"
     fi
 done
-component_version="tinyusb: "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" symbolic-ref --short HEAD)" "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" rev-parse --short HEAD)
-echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/sdk/versions.txt"
 
 #targets_count=`jq -c '.targets[] | length' configs/builds.json`
 for target_json in `jq -c '.targets[]' configs/builds.json`; do

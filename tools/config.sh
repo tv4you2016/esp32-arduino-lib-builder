@@ -97,27 +97,3 @@ function git_branch_exists(){ # git_branch_exists <repo-path> <branch-name>
 	local branch_found=`git -C "$repo_path" ls-remote --heads origin "$branch_name"`
 	if [ -n "$branch_found" ]; then echo 1; else echo 0; fi
 }
-
-function git_pr_exists(){ # git_pr_exists <branch-name>
-	local pr_num=`curl -s -k -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3.raw+json" "https://api.github.com/repos/$AR_REPO/pulls?head=$AR_USER:$1&state=open" | jq -r '.[].number'`
-	if [ ! "$pr_num" == "" ] && [ ! "$pr_num" == "null" ]; then echo 1; else echo 0; fi
-}
-
-function git_create_pr(){ # git_create_pr <branch> <title>
-	local pr_branch="$1"
-	local pr_title="$2"
-	local pr_target="$3"
-	local pr_body=""
-	for component in `ls "$AR_COMPS"`; do
-		if [ ! $component == "arduino" ]; then
-			if [ -d "$AR_COMPS/$component/.git" ] || [ -d "$AR_COMPS/$component/.github" ]; then
-				pr_body+="$component: "$(git -C "$AR_COMPS/$component" symbolic-ref --short HEAD)" "$(git -C "$AR_COMPS/$component" rev-parse --short HEAD)"\r\n"
-			fi
-		fi
-	done
-	pr_body+="tinyusb: "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" symbolic-ref --short HEAD)" "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" rev-parse --short HEAD)"\r\n"
-	local pr_data="{\"title\": \"$pr_title\", \"body\": \"$pr_body\", \"head\": \"$AR_USER:$pr_branch\", \"base\": \"$pr_target\"}"
-	git_create_pr_res=`echo "$pr_data" | curl -k -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3.raw+json" --data @- "https://api.github.com/repos/$AR_REPO/pulls"`
-	local done_pr=`echo "$git_create_pr_res" | jq -r '.title'`
-	if [ ! "$done_pr" == "" ] && [ ! "$done_pr" == "null" ]; then echo 1; else echo 0; fi
-}

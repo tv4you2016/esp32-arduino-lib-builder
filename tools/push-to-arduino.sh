@@ -19,7 +19,7 @@ if [ $AR_HAS_COMMIT == "0" ]; then
 	# make changes to the files
 	echo "Patching files in branch '$AR_NEW_BRANCH_NAME'..."
 	ESP32_ARDUINO="$AR_COMPS/arduino" ./tools/copy-to-arduino.sh
-	
+
 	cd $AR_COMPS/arduino
 
 	# did any of the files change?
@@ -40,15 +40,3 @@ if [ $AR_HAS_COMMIT == "0" ]; then
 	fi
 fi
 
-#
-# CREATE PULL REQUEST
-#
-
-if [ "$AR_HAS_PR" == "0" ]; then
-	pr_created=`git_create_pr "$AR_NEW_BRANCH_NAME" "$AR_NEW_PR_TITLE" "$AR_PR_TARGET_BRANCH"`
-	if [ $pr_created == "0" ]; then
-		echo "ERROR: Failed to create PR '$AR_NEW_PR_TITLE': "`echo "$git_create_pr_res" | jq -r '.message'`": "`echo "$git_create_pr_res" | jq -r '.errors[].message'`
-		exit 1
-	fi
-fi
-exit 0

@@ -60,7 +60,6 @@ if [ "$GITHUB_EVENT_NAME" == "schedule" ] || [ "$GITHUB_EVENT_NAME" == "reposito
 
 	AR_HAS_COMMIT=`git_commit_exists "$AR_COMPS/arduino" "$AR_NEW_COMMIT_MESSAGE"`
 	AR_HAS_BRANCH=`git_branch_exists "$AR_COMPS/arduino" "$AR_NEW_BRANCH_NAME"`
-	AR_HAS_PR=`git_pr_exists "$AR_NEW_BRANCH_NAME"`
 
 	if [ "$AR_HAS_COMMIT" == "1" ]; then
 		echo "Commit '$AR_NEW_COMMIT_MESSAGE' Already Exists"
