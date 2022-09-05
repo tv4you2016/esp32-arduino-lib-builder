@@ -14,7 +14,6 @@ TARGET="all"
 BUILD_TYPE="all"
 SKIP_ENV=0
 COPY_OUT=0
-DEPLOY_OUT=0
 
 function print_help() {
     echo "Usage: build.sh [-s] [-A <arduino_branch>] [-I <idf_branch>] [-i <idf_commit>] [-c <path>] [-t <target>] [-b <build|menuconfig|idf_libs|copy_bootloader|mem_variant>] [config ...]"
@@ -22,7 +21,6 @@ function print_help() {
     echo "       -A     Set which branch of arduino-esp32 to be used for compilation"
     echo "       -I     Set which branch of ESP-IDF to be used for compilation"
     echo "       -i     Set which commit of ESP-IDF to be used for compilation"
-    echo "       -d     Deploy the build to github arduino-esp32"
     echo "       -c     Set the arduino-esp32 folder to copy the result to. ex. '$HOME/Arduino/hardware/espressif/esp32'"
     echo "       -t     Set the build target(chip). ex. 'esp32s3'"
     echo "       -b     Set the build type. ex. 'build' to build the project and prepare for uploading to a board"
@@ -34,9 +32,6 @@ while getopts ":A:I:i:c:t:b:sd" opt; do
     case ${opt} in
         s )
             SKIP_ENV=1
-            ;;
-        d )
-            DEPLOY_OUT=1
             ;;
         c )
             export ESP32_ARDUINO="$OPTARG"
@@ -194,8 +189,4 @@ fi
 # copy everything to arduino-esp32 installation
 if [ $COPY_OUT -eq 1 ] && [ -d "$ESP32_ARDUINO" ]; then
     ./tools/copy-to-arduino.sh
-fi
-
-if [ $DEPLOY_OUT -eq 1 ]; then
-    ./tools/push-to-arduino.sh
 fi
