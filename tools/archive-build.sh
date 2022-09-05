@@ -11,10 +11,6 @@ pio_archive_path="dist/framework-arduinoespressif32-$idf_version_string.tar.gz"
 mkdir -p dist && rm -rf "$archive_path" "$build_archive_path"
 
 cd out
-echo "Show files from folder out"
-ls
-echo "Show Arduino directory"
-ls ../components/arduino
 echo "Creating framework-arduinoespressif32"
 cp -rf ../components/arduino arduino-esp32
 rm -rf arduino-esp32/docs
