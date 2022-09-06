@@ -7,6 +7,7 @@ idf_version_string=${IDF_BRANCH//\//_}"-$IDF_COMMIT"
 archive_path="dist/arduino-esp32-libs-$idf_version_string.tar.gz"
 build_archive_path="dist/arduino-esp32-build-$idf_version_string.tar.gz"
 pio_archive_path="dist/framework-arduinoespressif32-$idf_version_string.tar.gz"
+pio_zip_archive_path="dist/framework-arduinoespressif32-$idf_version_string.zip"
 
 mkdir -p dist && rm -rf "$archive_path" "$build_archive_path"
 
@@ -31,3 +32,4 @@ cp ../package.json arduino-esp32/package.json
 cp ../core_version.h arduino-esp32/cores/esp32/core_version.h
 mv arduino-esp32/ framework-arduinoespressif32/
 tar --exclude=.* -zcf ../$pio_archive_path framework-arduinoespressif32/
+7z a -mx=9 -tzip -xr'!.*' ../$pio_zip_archive_path framework-arduinoespressif32/
