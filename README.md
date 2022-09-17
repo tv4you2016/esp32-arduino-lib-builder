@@ -14,7 +14,7 @@ cd esp32-arduino-lib-builder
 Look in release and download a version. The day of build is using the commits of this day of IDF / Arduino.
 
 ### Stable Release
-are based on Arduino Core 2.0.4 and can be used with Platformio for the ESP32, ESP32C3, ESP32S2 and ESP32S3
+are based on Arduino Core 2.0.5 and can be used with Platformio for the ESP32, ESP32C3, ESP32S2 and ESP32S3
 ```                  
 [platformio]
 platform = https://github.com/tasmota/platform-espressif32/releases/download/v2.0.5/platform-espressif32-2.0.5.zip
