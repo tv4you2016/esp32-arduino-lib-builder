@@ -527,7 +527,3 @@ done;
 # Add IDF versions to sdkconfig
 echo "#define CONFIG_ARDUINO_IDF_COMMIT \"$IDF_COMMIT\"" >> "$AR_SDK/$MEMCONF/include/sdkconfig.h"
 echo "#define CONFIG_ARDUINO_IDF_BRANCH \"$IDF_BRANCH\"" >> "$AR_SDK/$MEMCONF/include/sdkconfig.h"
-
-# Replace "framework-arduinoespressif32" with "framework-arduino-solo1"
-sed -i 's/framework-arduinoespressif32/framework-arduino-solo1/g' $AR_COMPS/arduino/tools/platformio-build-esp32.py
-sed -i 's/framework-arduinoespressif32/framework-arduino-solo1/g' $AR_COMPS/arduino/tools/platformio-build.py

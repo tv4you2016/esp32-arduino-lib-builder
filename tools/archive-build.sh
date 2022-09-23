@@ -30,6 +30,9 @@ cp -f tools/gen_esp32part.py arduino-esp32/tools/
 cp -f tools/platformio-build-*.py arduino-esp32/tools/
 cp ../package.json arduino-esp32/package.json
 cp ../core_version.h arduino-esp32/cores/esp32/core_version.h
+# Replace "framework-arduinoespressif32" with "framework-arduino-solo1"
+awk -i inplace  -v cuv1="framework-arduinoespressif32" -v cuv2="framework-arduino-solo1" '{gsub(cuv1,cuv2); print;}' "arduino-esp32/tools/platformio-build-esp32.py"
+awk -i inplace  -v cuv1="framework-arduinoespressif32" -v cuv2="framework-arduino-solo1" '{gsub(cuv1,cuv2); print;}' "arduino-esp32/tools/platformio-build.py"
 mv arduino-esp32/ framework-arduinoespressif32/
 # If the framework is as tar.gz is needed uncomment next line
 # tar --exclude=.* -zcf ../$pio_archive_path framework-arduinoespressif32/
