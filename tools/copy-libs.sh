@@ -529,5 +529,7 @@ echo "#define CONFIG_ARDUINO_IDF_COMMIT \"$IDF_COMMIT\"" >> "$AR_SDK/$MEMCONF/in
 echo "#define CONFIG_ARDUINO_IDF_BRANCH \"$IDF_BRANCH\"" >> "$AR_SDK/$MEMCONF/include/sdkconfig.h"
 
 # Replace "framework-arduinoespressif32" with "framework-arduino-ITEAD"
-sed -i '' 's/framework-arduinoespressif32/framework-arduino-ITEAD/g' $AR_COMPS/arduino/tools/platformio-build-esp32.py
-sed -i '' 's/framework-arduinoespressif32/framework-arduino-ITEAD/g' $AR_COMPS/arduino/tools/platformio-build.py
+sed -i 's/framework-arduinoespressif32/framework-arduino-ITEAD/g' $AR_COMPS/arduino/tools/platformio-build-esp32.py
+sed -i 's/framework-arduinoespressif32/framework-arduino-ITEAD/g' $AR_COMPS/arduino/tools/platformio-build.py
+
+awk "/ASFLAGS=\[/{n++}{print>n\"pio_start.txt\"}" $AR_COMPS/arduino/tools/platformio-build-$IDF_TARGET.py
