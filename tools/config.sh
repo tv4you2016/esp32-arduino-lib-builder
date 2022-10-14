@@ -6,7 +6,7 @@ if [ -z $IDF_PATH ]; then
 fi
 
 if [ -z $IDF_BRANCH ]; then
-	IDF_BRANCH="IDF_Arduino"
+	IDF_BRANCH="IDF_Ard_wifi"
 fi
 
 if [ -z $AR_PR_TARGET_BRANCH ]; then
