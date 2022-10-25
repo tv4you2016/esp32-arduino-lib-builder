@@ -18,7 +18,7 @@ jobs:
     - name: Build Arduino Libs
       run: bash ./build.sh
     - name: Release
-      uses: jason2866/action-gh-release@eba46b8db09be9b89612ac7d488ab9f08e821b79
+      uses: jason2866/action-gh-release@v1.1
       #if: startsWith(github.ref, 'refs/tags/')
       with:
         tag_name: ${{ github.run_number }}
