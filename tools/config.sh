@@ -37,6 +37,7 @@ AR_REPO="$AR_USER/arduino-esp32"
 AR_BRANCH="master"
 
 echo "Framework built from IDF branch $IDF_BRANCH and Arduino branch $AR_BRANCH" >> esp32-arduino-lib-builder-INFO.txt
+cat esp32-arduino-lib-builder-INFO.txt
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
 if [ -n $GITHUB_TOKEN ]; then
