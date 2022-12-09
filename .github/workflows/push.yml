@@ -13,6 +13,8 @@ jobs:
       run: bash ./tools/prepare-ci.sh
     - name: Build Arduino Libs
       run: bash ./build.sh
+    - name: Show release txt
+      run: cat esp32-arduino-lib-builder-INFO.txt
     - name: Release
       uses: jason2866/action-gh-release@v1.2
       with:
