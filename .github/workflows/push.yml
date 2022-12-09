@@ -17,6 +17,7 @@ jobs:
       uses: jason2866/action-gh-release@v1.2
       with:
         tag_name: ${{ github.run_number }}
+        body_path: ${{ github.workspace }}-INFO.txt
         prerelease: true
         files: dist/framework*
       env:
