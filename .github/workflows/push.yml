@@ -15,8 +15,6 @@ jobs:
       run: bash ./build.sh
     - name: Display files
       run: ls -R ./*
-    - name: Show release-info.txt
-      run: bash cat release-info.txt
     - name: Release
       uses: jason2866/action-gh-release@v1.2
       with:
