@@ -36,7 +36,7 @@ AR_REPO="$AR_USER/arduino-esp32"
 # Arduino branch to use
 AR_BRANCH="master"
 
-echo "Framework built from IDF branch $IDF_BRANCH and Arduino branch $AR_BRANCH" >> release-info.txt
+echo "Framework built from IDF branch $IDF_BRANCH and $AR_REPO branch $AR_BRANCH" >> release-info.txt
 cat release-info.txt
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
