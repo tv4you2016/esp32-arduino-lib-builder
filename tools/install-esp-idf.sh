@@ -11,19 +11,16 @@ fi
 # CLONE ESP-IDF
 #
 
-IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
 if [ ! -d "$IDF_PATH" ]; then
-	echo "ESP-IDF is not installed! Installing local copy"
-	echo "git clone $IDF_REPO_URL -b $IDF_BRANCH"
+	echo "ESP-IDF is not installed! Installing from $IDF_REPO_URL branch $IDF_BRANCH"
 	git clone $IDF_REPO_URL -b $IDF_BRANCH
 	idf_was_installed="1"
 fi
 
-# Next lines redirects ALWAYS to espressif git since this sha1 only exists there!!!
-#if [ "$IDF_COMMIT" ]; then
-#    git -C "$IDF_PATH" checkout "$IDF_COMMIT"
-#    commit_predefined="1"
-#fi
+if [ "$commit_predefined" ]; then
+    echo "Use specified commit $IDF_COMMIT"
+    git -C "$IDF_PATH" checkout "$IDF_COMMIT"
+fi
 
 #
 # UPDATE ESP-IDF TOOLS AND MODULES
