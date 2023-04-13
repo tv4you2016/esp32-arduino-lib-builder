@@ -5,6 +5,10 @@ if [ -z $IDF_PATH ]; then
 	export IDF_PATH="$PWD/esp-idf"
 fi
 
+# The ESP32 IDF repository
+IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
+
+# The IDF branch to use
 if [ -z $IDF_BRANCH ]; then
 	IDF_BRANCH="release/v4.4"
 fi
@@ -12,6 +16,9 @@ fi
 if [ -z $AR_PR_TARGET_BRANCH ]; then
 	AR_PR_TARGET_BRANCH="master"
 fi
+
+# IDF commit to use
+IDF_COMMIT="d5015e8d34deaa410b5d70f8d36deaa105e2c526"
 
 if [ -z $IDF_TARGET ]; then
 	if [ -f sdkconfig ]; then
