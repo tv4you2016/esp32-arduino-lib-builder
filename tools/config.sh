@@ -5,6 +5,10 @@ if [ -z $IDF_PATH ]; then
 	export IDF_PATH="$PWD/esp-idf"
 fi
 
+# The ESP32 IDF repository
+IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
+
+# The IDF branch to use
 if [ -z $IDF_BRANCH ]; then
 	IDF_BRANCH="release/v4.4"
 fi
@@ -12,6 +16,9 @@ fi
 if [ -z $AR_PR_TARGET_BRANCH ]; then
 	AR_PR_TARGET_BRANCH="master"
 fi
+
+# IDF commit to use
+IDF_COMMIT="d5015e8d34deaa410b5d70f8d36deaa105e2c526"
 
 if [ -z $IDF_TARGET ]; then
 	if [ -f sdkconfig ]; then
@@ -34,7 +41,7 @@ AR_USER="tasmota"
 AR_REPO="$AR_USER/arduino-esp32"
 
 # Arduino branch to use
-AR_BRANCH="release/v2.x"
+AR_BRANCH="revert"
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
 if [ -n $GITHUB_TOKEN ]; then
@@ -49,7 +56,13 @@ AR_PLATFORM_TXT="$AR_OUT/platform.txt"
 AR_GEN_PART_PY="$AR_TOOLS/gen_esp32part.py"
 AR_SDK="$AR_TOOLS/sdk/$IDF_TARGET"
 
-IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
+if [ "$IDF_COMMIT" ]; then
+    echo "Using specific commit $IDF_COMMIT for IDF"
+    commit_predefined="1"
+else
+    IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
+fi
+
 AR_COMMIT=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
 
 rm -rf release-info.txt
