@@ -18,7 +18,7 @@ if [ -z $AR_PR_TARGET_BRANCH ]; then
 fi
 
 # IDF commit to use
-IDF_COMMIT="d5015e8d34deaa410b5d70f8d36deaa105e2c526"
+IDF_COMMIT="4dca4bdc3e758335ce9cfd42ff80ebfece179e30"
 
 if [ -z $IDF_TARGET ]; then
 	if [ -f sdkconfig ]; then
