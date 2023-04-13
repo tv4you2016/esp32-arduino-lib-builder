@@ -56,7 +56,13 @@ AR_PLATFORM_TXT="$AR_OUT/platform.txt"
 AR_GEN_PART_PY="$AR_TOOLS/gen_esp32part.py"
 AR_SDK="$AR_TOOLS/sdk/$IDF_TARGET"
 
-IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
+if [ "$IDF_COMMIT" ]; then
+    echo "Using specific commit $IDF_COMMIT for IDF"
+    commit_predefined="1"
+else
+    IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
+fi
+
 AR_COMMIT=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
 
 rm -rf release-info.txt
