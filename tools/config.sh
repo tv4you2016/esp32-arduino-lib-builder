@@ -10,7 +10,7 @@ IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
 
 # The IDF branch to use
 if [ -z $IDF_BRANCH ]; then
-	IDF_BRANCH="release/v4.4"
+	IDF_BRANCH=lwip_timeout"
 fi
 
 if [ -z $AR_PR_TARGET_BRANCH ]; then
@@ -18,7 +18,7 @@ if [ -z $AR_PR_TARGET_BRANCH ]; then
 fi
 
 # IDF commit to use
-IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
+#IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
 
 if [ -z $IDF_TARGET ]; then
 	if [ -f sdkconfig ]; then
