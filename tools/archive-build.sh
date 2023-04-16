@@ -26,6 +26,7 @@ rm -rf arduino-esp32/tools/gen_insights_package.py
 rm -rf arduino-esp32/tools/gen_insights_package.exe
 rm -rf arduino-esp32/tools/platformio-build-*.py
 rm -rf arduino-esp32/platform.txt
+rm -rf arduino-esp32/programmers.txt
 rm -rf arduino-esp32/boards.txt
 rm -rf arduino-esp32/package.json
 mv -f tools/esp32-arduino-libs/platformio-build-*.py arduino-esp32/tools/
