@@ -18,22 +18,21 @@ rm -rf arduino-esp32/docs
 rm -rf arduino-esp32/tests
 rm -rf arduino-esp32/libraries/RainMaker
 rm -rf arduino-esp32/libraries/Insights
-rm -rf arduino-esp32/package
+rm -rf arduino-esp32/package/pack*.json
 rm -rf arduino-esp32/tools/sdk
 rm -rf arduino-esp32/tools/esptool.py
 rm -rf arduino-esp32/tools/gen_esp32part.py
 rm -rf arduino-esp32/tools/gen_insights_package.py
 rm -rf arduino-esp32/tools/gen_insights_package.exe
 rm -rf arduino-esp32/tools/platformio-build-*.py
-rm -rf arduino-esp32/platform.txt
 rm -rf arduino-esp32/package.json
-cp -f platform.txt arduino-esp32/
-cp -Rf tools/sdk arduino-esp32/tools/
+cp -f package_esp32_index.template.json arduino-esp32/package/
+mv -f tools/esp32-arduino-libs/platformio-build-*.py arduino-esp32/tools/
 cp -f tools/gen_esp32part.py arduino-esp32/tools/
-cp -f tools/platformio-build-*.py arduino-esp32/tools/
+cp -Rf tools/esp32-arduino-libs/ arduino-esp32/tools/sdk
 cp ../package.json arduino-esp32/package.json
 cp ../core_version.h arduino-esp32/cores/esp32/core_version.h
 mv arduino-esp32/ framework-arduinoespressif32/
-# If the framework is as tar.gz is needed uncomment next line
+# If the framework is needed as tar.gz uncomment next line
 # tar --exclude=.* -zcf ../$pio_archive_path framework-arduinoespressif32/
 7z a -mx=9 -tzip -xr'!.*' ../$pio_zip_archive_path framework-arduinoespressif32/

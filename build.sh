@@ -16,7 +16,7 @@ SKIP_ENV=0
 COPY_OUT=0
 
 function print_help() {
-    echo "Usage: build.sh [-s] [-A <arduino_branch>] [-I <idf_branch>] [-i <idf_commit>] [-c <path>] [-t <target>] [-b <build|menuconfig|idf_libs|copy_bootloader|mem_variant>] [config ...]"
+    echo "Usage: build.sh [-s] [-A <arduino_branch>] [-I <idf_branch>] [-i <idf_commit>] [-c <path>] [-t <target>] [-b <build|menuconfig|reconfigure|idf_libs|copy_bootloader|mem_variant>] [config ...]"
     echo "       -s     Skip installing/updating of ESP-IDF and all components"
     echo "       -A     Set which branch of arduino-esp32 to be used for compilation"
     echo "       -I     Set which branch of ESP-IDF to be used for compilation"
@@ -53,6 +53,7 @@ while getopts ":A:I:i:c:t:b:sd" opt; do
             b=$OPTARG
             if [ "$b" != "build" ] &&
                [ "$b" != "menuconfig" ] &&
+               [ "$b" != "reconfigure" ] &&
                [ "$b" != "idf_libs" ] &&
                [ "$b" != "copy_bootloader" ] &&
                [ "$b" != "mem_variant" ]; then
@@ -118,13 +119,13 @@ fi
 rm -rf build sdkconfig out
 
 # Add components version info
-mkdir -p "$AR_TOOLS/sdk" && rm -rf version.txt && rm -rf "$AR_TOOLS/sdk/versions.txt"
+mkdir -p "$AR_TOOLS/esp32-arduino-libs" && rm -rf version.txt && rm -rf "$AR_TOOLS/esp32-arduino-libs/versions.txt"
 component_version="esp-idf: "$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)" "$(git -C "$IDF_PATH" rev-parse --short HEAD)
-echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/sdk/versions.txt"
+echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
 for component in `ls "$AR_COMPS"`; do
     if [ -d "$AR_COMPS/$component/.git" ] || [ -d "$AR_COMPS/$component/.github" ]; then
         component_version="$component: "$(git -C "$AR_COMPS/$component" symbolic-ref --short HEAD || git -C "$AR_COMPS/$component" tag --points-at HEAD)" "$(git -C "$AR_COMPS/$component" rev-parse --short HEAD)
-        echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/sdk/versions.txt"
+        echo $component_version >> version.txt && echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
     fi
 done
 
@@ -183,6 +184,13 @@ done
 # update package_esp32_index.template.json
 if [ "$BUILD_TYPE" = "all" ]; then
     python3 ./tools/gen_tools_json.py -i "$IDF_PATH" -j "$AR_COMPS/arduino/package/package_esp32_index.template.json" -o "$AR_OUT/"
+    python3 ./tools/gen_tools_json.py -i "$IDF_PATH" -o "$TOOLS_JSON_OUT/"
+    if [ $? -ne 0 ]; then exit 1; fi
+fi
+
+# copy everything to arduino-esp32 installation
+if [ $COPY_OUT -eq 1 ] && [ -d "$ESP32_ARDUINO" ]; then
+    ./tools/copy-to-arduino.sh
     if [ $? -ne 0 ]; then exit 1; fi
 fi
 
@@ -190,9 +198,4 @@ fi
 if [ "$BUILD_TYPE" = "all" ]; then
     ./tools/archive-build.sh
     if [ $? -ne 0 ]; then exit 1; fi
-fi
-
-# copy everything to arduino-esp32 installation
-if [ $COPY_OUT -eq 1 ] && [ -d "$ESP32_ARDUINO" ]; then
-    ./tools/copy-to-arduino.sh
 fi
