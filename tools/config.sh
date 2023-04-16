@@ -41,10 +41,10 @@ AR_REPO="$AR_USER/arduino-esp32"
 AR_BRANCH="release/v2.x"
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
-IDF_LIBS_REPO_URL="https://github.com/espressif/esp32-arduino-libs.git"
+IDF_LIBS_REPO_URL="https://github.com/tasmota/esp32-arduino-libs.git"
 if [ -n $GITHUB_TOKEN ]; then
 	AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
-	IDF_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/espressif/esp32-arduino-libs.git"
+	IDF_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/tasmota/esp32-arduino-libs.git"
 fi
 
 AR_ROOT="$PWD"
