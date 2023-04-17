@@ -60,7 +60,6 @@ IDF_LIBS_DIR="$AR_ROOT/../esp32-arduino-libs"
 
 if [ "$IDF_COMMIT" ]; then
     echo "Using specific commit $IDF_COMMIT for IDF"
-    commit_predefined="1"
 else
     IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
 fi
