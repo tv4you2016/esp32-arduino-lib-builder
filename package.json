@@ -1,7 +1,7 @@
 {
-  "name": "framework-arduinoespressif32 Solo1",
+  "name": "framework-arduinoespressif32",
   "version": "2.0.8",
-  "description": "Tasmota Arduino Framework for the Espressif ESP32-Solo1 SoC",
+  "description": "Tasmota Arduino Framework for the Espressif ESP32, ESP32-S and ESP32-C series of SoCs",
   "keywords": [
     "tasmota",
     "framework",
