@@ -18,7 +18,7 @@ if [ -z $AR_PR_TARGET_BRANCH ]; then
 fi
 
 # IDF commit to use
-#IDF_COMMIT="d5015e8d34deaa410b5d70f8d36deaa105e2c526"
+#IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
 
 if [ -z $IDF_TARGET ]; then
 	if [ -f sdkconfig ]; then
@@ -31,9 +31,6 @@ if [ -z $IDF_TARGET ]; then
 	fi
 fi
 
-IDF_COMPS="$IDF_PATH/components"
-IDF_TOOLCHAIN="xtensa-$IDF_TARGET-elf"
-
 # Owner of the target ESP32 Arduino repository
 AR_USER="tasmota"
 
@@ -44,8 +41,10 @@ AR_REPO="$AR_USER/arduino-esp32"
 AR_BRANCH="release/v2.x"
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
+IDF_LIBS_REPO_URL="https://github.com/tasmota/esp32-arduino-libs.git"
 if [ -n $GITHUB_TOKEN ]; then
 	AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
+	IDF_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/tasmota/esp32-arduino-libs.git"
 fi
 
 AR_ROOT="$PWD"
@@ -54,11 +53,13 @@ AR_OUT="$AR_ROOT/out"
 AR_TOOLS="$AR_OUT/tools"
 AR_PLATFORM_TXT="$AR_OUT/platform.txt"
 AR_GEN_PART_PY="$AR_TOOLS/gen_esp32part.py"
-AR_SDK="$AR_TOOLS/sdk/$IDF_TARGET"
+AR_SDK="$AR_TOOLS/esp32-arduino-libs/$IDF_TARGET"
+PIO_SDK="FRAMEWORK_DIR, \"tools\", \"sdk\", \"$IDF_TARGET\""
+TOOLS_JSON_OUT="$AR_TOOLS/esp32-arduino-libs"
+IDF_LIBS_DIR="$AR_ROOT/../esp32-arduino-libs"
 
 if [ "$IDF_COMMIT" ]; then
     echo "Using specific commit $IDF_COMMIT for IDF"
-    commit_predefined="1"
 else
     IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
 fi
@@ -98,7 +99,7 @@ export SED="sed"
 export SSTAT="stat -c %s"
 
 if [[ "$AR_OS" == "macos" ]]; then
-        if ! [ -x "$(command -v gsed)" ]; then
+	if ! [ -x "$(command -v gsed)" ]; then
 		echo "ERROR: gsed is not installed! Please install gsed first. ex. brew install gsed"
 		exit 1
 	fi
