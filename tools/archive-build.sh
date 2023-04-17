@@ -12,7 +12,7 @@ pio_zip_archive_path="dist/framework-arduinoespressif32-$idf_version_string.zip"
 mkdir -p dist && rm -rf "$archive_path" "$build_archive_path"
 
 cd out
-echo "Creating framework-arduinoespressif32"
+echo "Creating PlatformIO Tasmota framework-arduinoespressif32"
 cp -rf ../components/arduino arduino-esp32
 rm -rf arduino-esp32/docs
 rm -rf arduino-esp32/tests
@@ -29,6 +29,7 @@ rm -rf arduino-esp32/platform.txt
 rm -rf arduino-esp32/programmers.txt
 rm -rf arduino-esp32/boards.txt
 rm -rf arduino-esp32/package.json
+rm -rf arduino-esp32/*.md
 mv -f tools/esp32-arduino-libs/platformio-build-*.py arduino-esp32/tools/
 cp -f tools/gen_esp32part.py arduino-esp32/tools/
 cp -Rf tools/esp32-arduino-libs/ arduino-esp32/tools/sdk
