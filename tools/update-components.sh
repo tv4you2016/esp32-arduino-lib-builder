@@ -9,6 +9,7 @@ source ./tools/config.sh
 echo "Updating ESP32 Arduino..."
 if [ ! -d "$AR_COMPS/arduino" ]; then
 	git clone $AR_REPO_URL "$AR_COMPS/arduino"
+        git -C "$AR_COMPS/arduino" checkout e9c131a9d5b890c0ff622388b6110aaad3018001
 fi
 
 if [ -z $AR_BRANCH ]; then
@@ -42,5 +43,6 @@ if [ "$AR_BRANCH" ]; then
 	git -C "$AR_COMPS/arduino" checkout "$AR_BRANCH" && \
 	git -C "$AR_COMPS/arduino" fetch && \
 	git -C "$AR_COMPS/arduino" pull --ff-only
+	git -C "$AR_COMPS/arduino" checkout e9c131a9d5b890c0ff622388b6110aaad3018001
 fi
 if [ $? -ne 0 ]; then exit 1; fi
