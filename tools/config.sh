@@ -40,6 +40,9 @@ AR_REPO="$AR_USER/arduino-esp32"
 # Arduino branch to use
 AR_BRANCH="release/v2.x"
 
+# Arduino commit to use
+#$AR_COMMIT =
+
 AR_REPO_URL="https://github.com/$AR_REPO.git"
 IDF_LIBS_REPO_URL="https://github.com/tasmota/esp32-arduino-libs.git"
 if [ -n $GITHUB_TOKEN ]; then
