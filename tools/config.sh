@@ -10,7 +10,7 @@ IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
 
 # The IDF branch to use
 if [ -z $IDF_BRANCH ]; then
-	IDF_BRANCH="lwip_timeout"
+	IDF_BRANCH="lwip_fs"
 fi
 
 if [ -z $AR_PR_TARGET_BRANCH ]; then
@@ -40,9 +40,6 @@ AR_REPO="$AR_USER/arduino-esp32"
 # Arduino branch to use
 AR_BRANCH="release/v2.x"
 
-# Arduino commit to use
-#$AR_COMMIT =
-
 AR_REPO_URL="https://github.com/$AR_REPO.git"
 IDF_LIBS_REPO_URL="https://github.com/tasmota/esp32-arduino-libs.git"
 if [ -n $GITHUB_TOKEN ]; then
@@ -67,11 +64,7 @@ else
     IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
 fi
 
-if [ "$AR_COMMIT" ]; then
-    echo "Using specific commit $AR_COMMIT for Arduino"
-else
-    AR_COMMIT=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
-fi
+AR_COMMIT=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
 
 rm -rf release-info.txt
 echo "Framework built from Tasmota IDF branch $IDF_BRANCH commit $IDF_COMMIT and $AR_REPO branch $AR_BRANCH commit $AR_COMMIT" >> release-info.txt
