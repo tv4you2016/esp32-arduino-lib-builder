@@ -25,7 +25,7 @@ if [ -z $IDF_TARGET ]; then
 	fi
 fi
 
-# Owner of the target ESP32 Arduino repository
+# Owner of the IDF/ESP32 repositorys
 AR_USER="tasmota"
 
 # Arduino branch to use
