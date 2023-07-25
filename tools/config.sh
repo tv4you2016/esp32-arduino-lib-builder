@@ -38,7 +38,9 @@ AR_USER="tasmota"
 AR_REPO="$AR_USER/arduino-esp32"
 
 # Arduino branch to use
-AR_BRANCH="release/v2.x"
+if [ -z $AR_BRANCH ]; then
+    AR_BRANCH="release/v2.x"
+fi
 
 # Arduino commit to use
 #$AR_COMMIT =
