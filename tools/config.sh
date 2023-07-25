@@ -14,9 +14,6 @@ if [ -z $AR_PR_TARGET_BRANCH ]; then
 	AR_PR_TARGET_BRANCH="master"
 fi
 
-# IDF commit to use
-#IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
-
 if [ -z $IDF_TARGET ]; then
 	if [ -f sdkconfig ]; then
 		IDF_TARGET=`cat sdkconfig | grep CONFIG_IDF_TARGET= | cut -d'"' -f2`
@@ -38,6 +35,9 @@ fi
 
 # Arduino commit to use
 #$AR_COMMIT =
+
+# IDF commit to use
+#IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
 
 # Build full names of the repositorys
 AR_REPO="$AR_USER/arduino-esp32"
