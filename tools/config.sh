@@ -1,24 +1,31 @@
 #!/bin/bash
 
+# Owner of the IDF/ESP32 repositorys
+AR_USER="tasmota"
 
-if [ -z $IDF_PATH ]; then
-	export IDF_PATH="$PWD/esp-idf"
+# Arduino branch to use
+if [ -z $AR_BRANCH ]; then
+    AR_BRANCH="release/v2.x"
 fi
-
-# The ESP32 IDF repository
-IDF_REPO_URL="https://github.com/tasmota/esp-idf.git"
 
 # The IDF branch to use
 if [ -z $IDF_BRANCH ]; then
 	IDF_BRANCH="release/v4.4"
 fi
 
-if [ -z $AR_PR_TARGET_BRANCH ]; then
-	AR_PR_TARGET_BRANCH="master"
-fi
+# Arduino commit to use
+#$AR_COMMIT =
 
 # IDF commit to use
 #IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
+
+if [ -z $IDF_PATH ]; then
+	export IDF_PATH="$PWD/esp-idf"
+fi
+
+if [ -z $AR_PR_TARGET_BRANCH ]; then
+	AR_PR_TARGET_BRANCH="master"
+fi
 
 if [ -z $IDF_TARGET ]; then
 	if [ -f sdkconfig ]; then
@@ -31,25 +38,17 @@ if [ -z $IDF_TARGET ]; then
 	fi
 fi
 
-# Owner of the target ESP32 Arduino repository
-AR_USER="tasmota"
-
-# The full name of the repository
+# Build full names of the repositorys
 AR_REPO="$AR_USER/arduino-esp32"
-
-# Arduino branch to use
-if [ -z $AR_BRANCH ]; then
-    AR_BRANCH="release/v2.x"
-fi
-
-# Arduino commit to use
-#$AR_COMMIT =
+IDF_REPO="$AR_USER/esp-idf"
+AR_LIBS_REPO="$AR_USER/esp32-arduino-libs"
 
 AR_REPO_URL="https://github.com/$AR_REPO.git"
-IDF_LIBS_REPO_URL="https://github.com/tasmota/esp32-arduino-libs.git"
+IDF_REPO_URL="https://github.com/$IDF_REPO.git"
+IDF_LIBS_REPO_URL="https://github.com/$AR_LIBS_REPO.git"
 if [ -n $GITHUB_TOKEN ]; then
-	AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
-	IDF_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/tasmota/esp32-arduino-libs.git"
+    AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
+    IDF_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_LIBS_REPO.git"
 fi
 
 AR_ROOT="$PWD"
