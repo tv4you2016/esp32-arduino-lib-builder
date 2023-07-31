@@ -14,7 +14,7 @@ if [ -z $IDF_BRANCH ]; then
 fi
 
 # Arduino commit to use
-#$AR_COMMIT =
+#AR_COMMIT=""
 
 # IDF commit to use
 #IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
