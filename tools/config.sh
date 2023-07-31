@@ -14,10 +14,10 @@ if [ -z $IDF_BRANCH ]; then
 fi
 
 # Arduino commit to use
-#$AR_COMMIT =
+$AR_COMMIT ="61c3daeb84ca63c4c0fd1b1ae97ad65a893a0463"
 
 # IDF commit to use
-IDF_COMMIT="546bbc83c7b20708a0f9b8b8399781416c8fb198"
+#IDF_COMMIT="546bbc83c7b20708a0f9b8b8399781416c8fb198"
 
 if [ -z $IDF_PATH ]; then
 	export IDF_PATH="$PWD/esp-idf"
