@@ -17,7 +17,7 @@ fi
 #$AR_COMMIT =
 
 # IDF commit to use
-#IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
+IDF_COMMIT="546bbc83c7b20708a0f9b8b8399781416c8fb198"
 
 if [ -z $IDF_PATH ]; then
 	export IDF_PATH="$PWD/esp-idf"
