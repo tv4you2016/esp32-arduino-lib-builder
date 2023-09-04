@@ -34,6 +34,16 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	$IDF_PATH/install.sh
 	export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
 	export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
+
+	# Temporarily patch the ETH driver to support custom SPI
+	cd $IDF_PATH
+	patch -p1 -i ../patches/spi_eth.diff
+	cd -
+
+	# Patch espressif nimble driver to support esp-nimble-cpp from h2zero
+	cd $IDF_PATH
+	patch -p1 -i ../patches/nimble.diff
+	cd - 
 fi
 
 #
