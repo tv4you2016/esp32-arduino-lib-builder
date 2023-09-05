@@ -124,6 +124,12 @@ for component in `ls "$AR_COMPS"`; do
     fi
 done
 
+# Add release-info
+rm -rf release-info.txt
+IDF_Commit_short=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
+AR_Commit_short=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
+echo "Framework built from $IDF_REPO branch $IDF_BRANCH commit $IDF_Commit_short and $AR_REPO branch $AR_BRANCH commit $AR_Commit_short" >> release-info.txt
+
 #targets_count=`jq -c '.targets[] | length' configs/builds.json`
 for target_json in `jq -c '.targets[]' configs/builds.json`; do
     target=$(echo "$target_json" | jq -c '.target' | tr -d '"')
