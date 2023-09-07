@@ -5,7 +5,7 @@ AR_USER="tasmota"
 
 # Arduino branch to use
 if [ -z $AR_BRANCH ]; then
-    AR_BRANCH="release/v2.12"
+    AR_BRANCH="release/v2.x"
 fi
 
 # The IDF branch to use
