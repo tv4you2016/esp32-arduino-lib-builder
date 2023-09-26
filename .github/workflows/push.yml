@@ -1,4 +1,4 @@
-name: Arduino IDF "release/v4.4"
+name: Arduino IDF "release/v4.4_new_lfs"
 
 on:
   workflow_dispatch:  # Manually start a workflow
