@@ -1,4 +1,4 @@
-name: IDF "release/v4.4" solo1
+name: Arduino 2.0.yx solo1 with spiffs
 
 on:
   workflow_dispatch:  # Manually start a workflow
