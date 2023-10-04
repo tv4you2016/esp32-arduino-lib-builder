@@ -1,4 +1,4 @@
-name: Arduino IDF "release/v4.4_new_lfs"
+name: Arduino core 2.0.14 with spiffs
 
 on:
   workflow_dispatch:  # Manually start a workflow
