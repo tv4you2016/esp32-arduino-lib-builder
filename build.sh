@@ -107,10 +107,6 @@ else
     source ./tools/config.sh
 fi
 
-if [ -f "./managed_components/espressif__esp-sr/.component_hash" ]; then
-    rm -rf ./managed_components/espressif__esp-sr/.component_hash
-fi
-
 if [ "$BUILD_TYPE" != "all" ]; then
     if [ "$TARGET" = "all" ]; then
         echo "ERROR: You need to specify target for non-default builds"
@@ -161,6 +157,7 @@ IDF_Commit_short=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
 AR_Commit_short=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
 echo "Framework built from $IDF_REPO branch $IDF_BRANCH commit $IDF_Commit_short and $AR_REPO branch $AR_BRANCH commit $AR_Commit_short" >> release-info.txt
 
+
 #targets_count=`jq -c '.targets[] | length' configs/builds.json`
 for target_json in `jq -c '.targets[]' configs/builds.json`; do
     target=$(echo "$target_json" | jq -c '.target' | tr -d '"')
@@ -184,10 +181,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
         idf_libs_configs="$idf_libs_configs;configs/defconfig.$defconf"
     done
 
-    if [ -f "./managed_components/espressif__esp-sr/.component_hash" ]; then
-        rm -rf ./managed_components/espressif__esp-sr/.component_hash
-    fi
-
     echo "* Build IDF-Libs: $idf_libs_configs"
     rm -rf build sdkconfig
     idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$idf_libs_configs" idf_libs
@@ -199,10 +192,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
         for defconf in `echo "$boot_conf" | jq -c '.[]' | tr -d '"'`; do
             bootloader_configs="$bootloader_configs;configs/defconfig.$defconf";
         done
-
-        if [ -f "./managed_components/espressif__esp-sr/.component_hash" ]; then
-            rm -rf ./managed_components/espressif__esp-sr/.component_hash
-        fi
 
         echo "* Build BootLoader: $bootloader_configs"
         rm -rf build sdkconfig
@@ -216,10 +205,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
         for defconf in `echo "$mem_conf" | jq -c '.[]' | tr -d '"'`; do
             mem_configs="$mem_configs;configs/defconfig.$defconf";
         done
-
-        if [ -f "./managed_components/espressif__esp-sr/.component_hash" ]; then
-            rm -rf ./managed_components/espressif__esp-sr/.component_hash
-        fi
 
         echo "* Build Memory Variant: $mem_configs"
         rm -rf build sdkconfig
