@@ -19,6 +19,7 @@ rm -rf arduino-esp32/tests
 rm -rf arduino-esp32/libraries/RainMaker
 rm -rf arduino-esp32/libraries/Insights
 rm -rf arduino-esp32/libraries/SPIFFS
+rm -rf arduino-esp32/libraries/WiFiClientSecure
 rm -rf arduino-esp32/package
 rm -rf arduino-esp32/tools/sdk
 rm -rf arduino-esp32/tools/get.py
