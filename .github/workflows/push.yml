@@ -1,4 +1,4 @@
-name: IDF "release/v4.4" ITEAD
+name: Arduino 2.0.14 ITEAD
 
 on:
   workflow_dispatch:  # Manually start a workflow
