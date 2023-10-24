@@ -1,4 +1,4 @@
-name: Arduino Core 2.0.14
+name: Arduino Core 2.0.14 IDF release/v4.4_no_SECP256R1
 
 on:
   workflow_dispatch:  # Manually start a workflow
