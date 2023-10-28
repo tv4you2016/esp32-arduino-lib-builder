@@ -10,7 +10,7 @@ fi
 
 # The IDF branch to use
 if [ -z $IDF_BRANCH ]; then
-	IDF_BRANCH="release/v4.4_no_SECP256R1"
+	IDF_BRANCH="release/v4.4"
 fi
 
 # Arduino commit to use
