@@ -9,14 +9,14 @@ TINYUSB_REPO_URL="https://github.com/hathach/tinyusb.git"
 #
 # CLONE/UPDATE ESP32-CAMERA
 #
-#echo "Updating ESP32 Camera..."
-#if [ ! -d "$AR_COMPS/esp32-camera" ]; then
-#	git clone $CAMERA_REPO_URL "$AR_COMPS/esp32-camera"
-#else
-#	git -C "$AR_COMPS/esp32-camera" fetch && \
-#	git -C "$AR_COMPS/esp32-camera" pull --ff-only
-#fi
-#if [ $? -ne 0 ]; then exit 1; fi
+echo "Updating ESP32 Camera..."
+if [ ! -d "$AR_COMPS/esp32-camera" ]; then
+	git clone $CAMERA_REPO_URL "$AR_COMPS/esp32-camera"
+else
+	git -C "$AR_COMPS/esp32-camera" fetch && \
+	git -C "$AR_COMPS/esp32-camera" pull --ff-only
+fi
+if [ $? -ne 0 ]; then exit 1; fi
 
 #
 # Arduino needs cam_hal.h from esp32-camera in include folder
