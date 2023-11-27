@@ -37,13 +37,10 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 
 	# Temporarily patch the ETH driver to support custom SPI
 	cd $IDF_PATH
-	patch -p1 -i ../patches/spi_eth.diff
+	patch -p1 -N -i ../patches/spi_eth.diff
+  patch -p1 -N -i ../patches/eth_multicast.diff
+	patch -p1 -N -i ../patches/esp32s2_i2c_ll_master_init.diff
 	cd -
-
-	# Patch espressif nimble driver to support esp-nimble-cpp from h2zero
-	cd $IDF_PATH
-	patch -p1 -i ../patches/nimble.diff
-	cd - 
 fi
 
 #
