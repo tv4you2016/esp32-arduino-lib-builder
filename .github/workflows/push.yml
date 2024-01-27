@@ -8,7 +8,7 @@ jobs:
     name: Build Arduino Libs
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -18,7 +18,7 @@ jobs:
     - name: Build Arduino Libs
       run: bash ./build.sh
     - name: Release
-      uses: jason2866/action-gh-release@v1.2
+      uses: jason2866/action-gh-release@v1.3
       with:
         tag_name: ${{ github.run_number }}
         body_path: release-info.txt
