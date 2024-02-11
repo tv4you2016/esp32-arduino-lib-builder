@@ -14,6 +14,9 @@ jobs:
         python-version: '3.11'
     - name: Install dependencies
       run: bash ./tools/prepare-ci.sh
+    - name: Get current branch
+      run: |
+        echo "GIT_BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
     - name: Build Arduino Libs
       run: bash ./build.sh
     - name: Release
