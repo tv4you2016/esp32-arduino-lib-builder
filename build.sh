@@ -144,8 +144,8 @@ mkdir -p "$AR_TOOLS/esp32-arduino-libs"
 rm -rf release-info.txt
 IDF_Commit_short=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
 AR_Commit_short=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
-echo "Framework built from 
-- $IDF_REPO branch [$IDF_BRANCH](https://github.com/$IDF_REPO/tree/$IDF_BRANCH) commit [$IDF_Commit_short](https://github.com/$IDF_REPO/commits/$IDF_BRANCH/#:~:text=$IDF_Commit_short) 
+echo "Framework built from
+- $IDF_REPO branch [$IDF_BRANCH](https://github.com/$IDF_REPO/tree/$IDF_BRANCH) commit [$IDF_Commit_short](https://github.com/$IDF_REPO/commits/$IDF_BRANCH/#:~:text=$IDF_Commit_short)
 - $AR_REPO branch [$AR_BRANCH](https://github.com/$AR_REPO/tree/$AR_BRANCH) commit [$AR_Commit_short](https://github.com/$AR_REPO/commits/$AR_BRANCH/#:~:text=$AR_Commit_short)
 - Arduino lib builder branch: $GIT_BRANCH" >> release-info.txt
 
@@ -244,11 +244,7 @@ fi
 
 # Generate PlatformIO manifest file
 if [ "$BUILD_TYPE" = "all" ]; then
-    pushd $IDF_PATH
-    ibr=$(git branch --show-current)
-    ic=$(git -C "$IDF_PATH" rev-parse --short HEAD)
-    popd
-    python3 ./tools/gen_platformio_manifest.py -o "$TOOLS_JSON_OUT/" -s "$ibr" -c "$ic"
+    python3 ./tools/gen_platformio_manifest.py -o "$TOOLS_JSON_OUT/" -s "$IDF_BRANCH" -c "$IDF_COMMIT"
     if [ $? -ne 0 ]; then exit 1; fi
 fi
 
