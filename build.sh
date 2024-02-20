@@ -235,6 +235,8 @@ for component in `ls "$AR_MANAGED_COMPS"`; do
     fi
 done
 
+export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
+
 # update package_esp32_index.template.json
 if [ "$BUILD_TYPE" = "all" ]; then
     python3 ./tools/gen_tools_json.py -i "$IDF_PATH" -j "$AR_COMPS/arduino/package/package_esp32_index.template.json" -o "$AR_OUT/"
