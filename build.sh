@@ -244,10 +244,6 @@ fi
 
 # Generate PlatformIO manifest file
 if [ "$BUILD_TYPE" = "all" ]; then
-    pushd $IDF_PATH
-    ibr=$(git describe --all --exact-match 2>/dev/null)
-    ic=$(git -C "$IDF_PATH" rev-parse --short HEAD)
-    popd
     python3 ./tools/gen_platformio_manifest.py -o "$TOOLS_JSON_OUT/" -s "$IDF_BRANCH" -c "$IDF_COMMIT"
     if [ $? -ne 0 ]; then exit 1; fi
 fi
