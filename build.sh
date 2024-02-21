@@ -250,13 +250,22 @@ if [ "$BUILD_TYPE" = "all" ]; then
     if [ $? -ne 0 ]; then exit 1; fi
 fi
 
+AR_VERSION=$(jq -c '.version' "$AR_COMPS/arduino/package.json" | tr -d '"')
+AR_VERSION_UNDERSCORE=`echo "$AR_VERSION" | tr . _`
+
 # Generate PlatformIO framework manifest file
 rm -rf "$AR_ROOT/package.json"
-AR_VERSION=$(jq -c '.version' "$AR_COMPS/arduino/package.json" | tr -d '"')
 if [ "$BUILD_TYPE" = "all" ]; then
     python3 ./tools/gen_pio_frmwk_manifest.py -o "$AR_ROOT/" -s "v$AR_VERSION" -c "$IDF_COMMIT"
     if [ $? -ne 0 ]; then exit 1; fi
 fi
+
+# Generate core_version.h
+rm -rf "$AR_ROOT/core_version.h"
+echo "#define ARDUINO_ESP32_GIT_VER 0x$IDF_Commit_short
+#define ARDUINO_ESP32_GIT_DESC $AR_VERSION
+#define ARDUINO_ESP32_RELEASE_$AR_VERSION_UNDERSCORE
+#define ARDUINO_ESP32_RELEASE \"$AR_VERSION_UNDERSCORE\"" >> "$AR_ROOT/core_version.h"
 
 # copy everything to arduino-esp32 installation
 if [ $COPY_OUT -eq 1 ] && [ -d "$ESP32_ARDUINO" ]; then
