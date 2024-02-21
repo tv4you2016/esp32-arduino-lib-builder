@@ -13,4 +13,4 @@ brew install gperf
 brew install ninja
 brew install ccache
 python -m pip install --upgrade pip
-pip install wheel future pyelftools 
+pip install wheel future pyelftools
