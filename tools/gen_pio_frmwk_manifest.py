@@ -5,7 +5,7 @@ import re
 import sys
 
 MANIFEST_DATA = {
-    "name": "framework-arduinoespressif32",
+    "name": "framework-arduinoespressif32-ITEAD",
     "description": "Platformio Tasmota Arduino framework for the Espressif ESP32-ITEAD",
     "keywords": ["framework", "tasmota", "arduino", "espressif", "esp32"],
     "license": "LGPL-2.1-or-later",
