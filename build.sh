@@ -262,7 +262,7 @@ fi
 
 # Generate core_version.h
 rm -rf "$AR_ROOT/core_version.h"
-echo "#define ARDUINO_ESP32_GIT_VER 0x$IDF_Commit_short
+echo "#define ARDUINO_ESP32_GIT_VER 0x$AR_Commit_short
 #define ARDUINO_ESP32_GIT_DESC $AR_VERSION
 #define ARDUINO_ESP32_RELEASE_$AR_VERSION_UNDERSCORE
 #define ARDUINO_ESP32_RELEASE \"$AR_VERSION_UNDERSCORE\"" >> "$AR_ROOT/core_version.h"
