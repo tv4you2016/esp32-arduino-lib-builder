@@ -71,22 +71,6 @@ fi
 if [ $? -ne 0 ]; then exit 1; fi
 
 #
-# remove libraries not needed for Tasmota
-#
-rm -rf "$AR_COMPS/arduino/libraries/RainMaker"
-rm -rf "$AR_COMPS/arduino/libraries/Insights"
-rm -rf "$AR_COMPS/arduino/libraries/ESP_I2S"
-rm -rf "$AR_COMPS/arduino/libraries/SPIFFS"
-rm -rf "$AR_COMPS/arduino/libraries/BLE"
-rm -rf "$AR_COMPS/arduino/libraries/SimpleBLE"
-rm -rf "$AR_COMPS/arduino/libraries/BluetoothSerial"
-rm -rf "$AR_COMPS/arduino/libraries/WiFiProv"
-rm -rf "$AR_COMPS/arduino/libraries/WiFiClientSecure"
-rm -rf "$AR_COMPS/arduino/libraries/ESP32"
-rm -rf "$AR_COMPS/arduino/libraries/ESP_SR"
-rm -rf "$AR_COMPS/arduino/libraries/TFLiteMicro"
-
-#
 # CLONE/UPDATE ESP32-ARDUINO-LIBS
 #
 #if [ ! -d "$IDF_LIBS_DIR" ]; then
