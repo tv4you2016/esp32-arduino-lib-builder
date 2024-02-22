@@ -6,12 +6,12 @@ import sys
 
 MANIFEST_DATA = {
     "name": "framework-arduinoespressif32",
-    "description": "Platformio Tasmota Arduino framework for the Espressif ESP32 series of SoCs",
-    "keywords": ["framework", "tasmota", "arduino", "espressif", "esp32"],
+    "description": "Platformio Arduino framework for the Espressif ESP32 series of SoCs",
+    "keywords": ["framework", "arduino", "espressif", "esp32"],
     "license": "LGPL-2.1-or-later",
     "repository": {
         "type": "git",
-        "url": "https://github.com/tasmota/arduino-esp32",
+        "url": "https://github.com/espressif/arduino-esp32",
     },
 }
 
