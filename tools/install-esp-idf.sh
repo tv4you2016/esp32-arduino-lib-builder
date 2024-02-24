@@ -61,12 +61,17 @@ fi
 #
 
 if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
-        git submodule update --recursive
+    git submodule update --recursive
 	$IDF_PATH/install.sh
 
 	# Temporarily patch the ESP32-S2 I2C LL driver to keep the clock source
 	cd $IDF_PATH
-	patch -p1 -N -i ../patches/esp32s2_i2c_ll_master_init.diff
+	patch -p1 -N -i "$AR_ROOT/patches/esp32s2_i2c_ll_master_init.diff"
+	cd -
+
+	# Patch to use the framework included "framework-arduinoespressif32-libs"
+	cd "$AR_COMPS/arduino"
+	patch -p1 -N -i "$AR_ROOT/patches/platformio-build.diff"
 	cd -
 fi
 
