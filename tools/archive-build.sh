@@ -31,8 +31,11 @@ cp -Rf tools/esp32-arduino-libs arduino-esp32/tools/
 cp ../package.json arduino-esp32/package.json
 cp ../core_version.h arduino-esp32/cores/esp32/core_version.h
 
-# Replace FRAMEWORK_LIBS_DIR from extern installed package to folder stored in framework
-gawk -i inplace  -v cuv1="platform.get_package_dir(\"framework-arduinoespressif32-libs\")" -v cuv2="join(FRAMEWORK_DIR, \"tools\", \"esp32-arduino-libs\")" '{gsub(cuv1,cuv2); print;}' "arduino-esp32/tools/platformio-build.py"
+# Replace FRAMEWORK_LIBS_DIR path from extern installed package to stored in framework
+org="platform.get_package_dir(\"framework-arduinoespressif32-libs\")"
+repl="join(FRAMEWORK_DIR, \"tools\", \"esp32-arduino-libs\")"
+echo "Replace FRAMEWORK_LIBS_DIR=$org with FRAMEWORK_LIBS_DIR=$repl"
+gawk -i inplace  -v cuv1=$org -v cuv2=$repl '{gsub(cuv1,cuv2); print;}' "arduino-esp32/tools/platformio-build.py"
 
 mv arduino-esp32/ framework-arduinoespressif32/
 
