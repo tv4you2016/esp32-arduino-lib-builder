@@ -70,6 +70,12 @@ fi
 
 if [ $? -ne 0 ]; then exit 1; fi
 
+# Patch to use the framework included "framework-arduinoespressif32-libs"
+Echo "Patch to use the framework included arduinoespressif32-libs" 
+cd "$AR_COMPS/arduino"
+patch -p1 -N -i ../patches/platformio-build.diff
+cd -
+
 #
 # CLONE/UPDATE ESP32-ARDUINO-LIBS
 #
