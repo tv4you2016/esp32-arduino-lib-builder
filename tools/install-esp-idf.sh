@@ -68,11 +68,6 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	cd $IDF_PATH
 	patch -p1 -N -i ../patches/esp32s2_i2c_ll_master_init.diff
 	cd -
-
-        # Patch to use the included "framework-arduinoespressif32-libs" in framework
-	cd "$AR_COMPS/arduino"
-	patch -p1 -N -i ../patches/platformio-build.diff
-        cd -
 fi
 
 #
