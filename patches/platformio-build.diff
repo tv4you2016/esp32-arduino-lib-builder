@@ -1,0 +1,11 @@
+diff --git a/tools/platformio-build.py b/tools/platformio-build.py
+index 0127f835d8..5e53e192b1 100644
+--- a/tools/platformio-build.py
++++ b/tools/platformio-build.py
+@@ -37,7 +37,7 @@
+ )
+ 
+ FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoespressif32")
+-FRAMEWORK_LIBS_DIR = platform.get_package_dir("framework-arduinoespressif32-libs")
++FRAMEWORK_LIBS_DIR = join(FRAMEWORK_DIR, "tools", "esp32-arduino-libs")
+ assert isdir(FRAMEWORK_DIR)
