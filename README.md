@@ -4,7 +4,7 @@ This repository contains the scripts that produce the libraries included with Ta
 
 ### Build on Ubuntu
 ```bash
-sudo apt update && sudo apt install -y git wget curl libssl-dev libncurses-dev flex bison gperf python3 cmake ninja-build ccache
+sudo apt update && sudo apt install -y git wget curl libssl-dev libncurses-dev flex bison gperf python3 cmake ninja-build ccache jq
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py && \
 pip3 install setuptools pyserial click future wheel cryptography pyparsing pyelftools
 git clone https://github.com/Jason2866/esp32-arduino-lib-builder
