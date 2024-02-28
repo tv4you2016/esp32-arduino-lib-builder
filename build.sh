@@ -199,7 +199,7 @@ echo "#define ARDUINO_ESP32_GIT_VER 0x$AR_Commit_short
 # Generate PlatformIO framework manifest file
 rm -rf "$AR_ROOT/package.json"
 if [ "$BUILD_TYPE" = "all" ]; then
-    python3 ./tools/gen_pio_frmwk_manifest.py -o "$AR_ROOT/" -s "v$AR_VERSION" -c "$IDF_COMMIT"
+    python3 ./tools/gen_pio_frmwk_manifest.py -o "$AR_ROOT/" -s "v$AR_VERSION" -c "$IDF_Commit_short"
     if [ $? -ne 0 ]; then exit 1; fi
 fi
 
