@@ -14,10 +14,10 @@ if [ -z $IDF_BRANCH ]; then
 fi
 
 # Arduino commit to use
-#AR_COMMIT=""
+#AR_COMMIT="af674a139e02e530c34dd59f7f1a022723834976"
 
 # IDF commit to use
-#IDF_COMMIT="2549b9fe369005664ce817c4d290a3132177eb8d"
+#IDF_COMMIT="112a4beeb9c1f34ac2fc917ab21567b91baa0a70"
 
 if [ -z $IDF_PATH ]; then
 	export IDF_PATH="$PWD/esp-idf"
@@ -73,11 +73,6 @@ if [ "$AR_COMMIT" ]; then
 else
     AR_COMMIT=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
 fi
-
-#rm -rf release-info.txt
-#echo "Framework built from Tasmota IDF branch $IDF_BRANCH commit $IDF_COMMIT and $AR_REPO branch $AR_BRANCH commit $AR_COMMIT" >> release-info.txt
-#echo "Framework built from $IDF_REPO branch [$IDF_BRANCH](https://github.com/$IDF_REPO/tree/$IDF_BRANCH) commit [$IDF_Commit](https://github.com/$IDF_REPO/commits/$IDF_BRANCH/#:~:text=$IDF_Commit) 
-#and  $AR_REPO branch [$AR_BRANCH](https://github.com/$AR_REPO/tree/$AR_BRANCH) commit [$AR_Commit](https://github.com/$AR_REPO/commits/$AR_BRANCH/#:~:text=$AR_Commit)" >> release-info.txt
 
 function get_os(){
   	OSBITS=`arch`
