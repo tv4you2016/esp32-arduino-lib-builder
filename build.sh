@@ -178,8 +178,10 @@ done
 
 # Add release-info
 rm -rf release-info.txt
-IDF_Commit_short=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
-AR_Commit_short=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
+IDF_Commit=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
+IDF_Commit_short=${IDF_Commit::7}
+AR_Commit=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
+AR_Commit_short=${AR_Commit::7}
 echo "Framework built from
 - $IDF_REPO branch [$IDF_BRANCH](https://github.com/$IDF_REPO/tree/$IDF_BRANCH) commit [$IDF_Commit_short](https://github.com/$IDF_REPO/commits/$IDF_BRANCH/#:~:text=$IDF_Commit_short)
 - $AR_REPO branch [$AR_BRANCH](https://github.com/$AR_REPO/tree/$AR_BRANCH) commit [$AR_Commit_short](https://github.com/$AR_REPO/commits/$AR_BRANCH/#:~:text=$AR_Commit_short)
