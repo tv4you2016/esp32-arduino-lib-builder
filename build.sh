@@ -187,10 +187,19 @@ echo "Framework built from
 
 # Generate core_version.h
 rm -rf "$AR_ROOT/core_version.h"
+AR_VERSION=$(jq -c '.version' "$AR_COMPS/arduino/package.json" | tr -d '"')
+AR_VERSION_UNDERSCORE=`echo "$AR_VERSION" | tr . _`
 echo "#define ARDUINO_ESP32_GIT_VER 0x$AR_Commit_short
 #define ARDUINO_ESP32_GIT_DESC $AR_VERSION
 #define ARDUINO_ESP32_RELEASE_$AR_VERSION_UNDERSCORE
 #define ARDUINO_ESP32_RELEASE \"$AR_VERSION_UNDERSCORE\"" >> "$AR_ROOT/core_version.h"
+
+# Generate PlatformIO framework manifest file
+rm -rf "$AR_ROOT/package.json"
+if [ "$BUILD_TYPE" = "all" ]; then
+    python3 ./tools/gen_pio_frmwk_manifest.py -o "$AR_ROOT/" -s "v$AR_VERSION" -c "$IDF_COMMIT"
+    if [ $? -ne 0 ]; then exit 1; fi
+fi
 
 # update package_esp32_index.template.json
 if [ "$BUILD_TYPE" = "all" ]; then
