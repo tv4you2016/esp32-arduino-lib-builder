@@ -176,6 +176,22 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
     done
 done
 
+# Add release-info
+rm -rf release-info.txt
+IDF_Commit_short=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
+AR_Commit_short=$(git -C "$AR_COMPS/arduino" rev-parse --short HEAD || echo "")
+echo "Framework built from
+- $IDF_REPO branch [$IDF_BRANCH](https://github.com/$IDF_REPO/tree/$IDF_BRANCH) commit [$IDF_Commit_short](https://github.com/$IDF_REPO/commits/$IDF_BRANCH/#:~:text=$IDF_Commit_short)
+- $AR_REPO branch [$AR_BRANCH](https://github.com/$AR_REPO/tree/$AR_BRANCH) commit [$AR_Commit_short](https://github.com/$AR_REPO/commits/$AR_BRANCH/#:~:text=$AR_Commit_short)
+- Arduino lib builder branch: $GIT_BRANCH" >> release-info.txt 
+
+# Generate core_version.h
+rm -rf "$AR_ROOT/core_version.h"
+echo "#define ARDUINO_ESP32_GIT_VER 0x$AR_Commit_short
+#define ARDUINO_ESP32_GIT_DESC $AR_VERSION
+#define ARDUINO_ESP32_RELEASE_$AR_VERSION_UNDERSCORE
+#define ARDUINO_ESP32_RELEASE \"$AR_VERSION_UNDERSCORE\"" >> "$AR_ROOT/core_version.h"
+
 # update package_esp32_index.template.json
 if [ "$BUILD_TYPE" = "all" ]; then
     python3 ./tools/gen_tools_json.py -i "$IDF_PATH" -j "$AR_COMPS/arduino/package/package_esp32_index.template.json" -o "$AR_OUT/"
