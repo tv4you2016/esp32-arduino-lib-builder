@@ -1,7 +1,7 @@
 #!/bin/bash
 
 IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD || echo "")
-IDF_Commit_short=${IDF_Commit::7}
+IDF_Commit_short=${IDF_COMMIT::7}
 IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD || echo "")
 
 idf_version_string=${IDF_BRANCH//\//_}"-$IDF_Commit_short"
