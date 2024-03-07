@@ -2,10 +2,10 @@
 
 idf_version_string=${IDF_BRANCH//\//_}"-$IDF_COMMIT"
 
-archive_path="dist/arduino-esp32-libs-ITEAD-$idf_version_string.tar.gz"
-build_archive_path="dist/arduino-esp32-build-ITEAD-$idf_version_string.tar.gz"
-pio_archive_path="dist/framework-arduinoespressif32-ITEAD-$idf_version_string.tar.gz"
-pio_zip_archive_path="dist/framework-arduinoespressif32-ITEAD-$idf_version_string.zip"
+archive_path="dist/arduino-esp32-libs-ITEAD-$TARGET-$idf_version_string.tar.gz"
+build_archive_path="dist/arduino-esp32-build-ITEAD-$TARGET-$idf_version_string.tar.gz"
+pio_archive_path="dist/framework-arduinoespressif32-ITEAD-$TARGET-$idf_version_string.tar.gz"
+pio_zip_archive_path="dist/framework-arduinoespressif32-ITEAD-$TARGET-$idf_version_string.zip"
 
 mkdir -p dist && rm -rf "$archive_path" "$build_archive_path"
 
