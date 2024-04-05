@@ -199,7 +199,7 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
     echo "* Target: $target"
 
     # Build Main Configs List
-    main_configs="configs/defconfig.common;configs/defconfig.$target;configs/defconfig.debug_$BUILD_DEBUG"
+    main_configs="configs/defconfig.common;configs/defconfig.$target"
     for defconf in `echo "$target_json" | jq -c '.features[]' | tr -d '"'`; do
         main_configs="$main_configs;configs/defconfig.$defconf"
     done
