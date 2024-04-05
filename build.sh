@@ -135,7 +135,7 @@ if [ "$BUILD_TYPE" != "all" ]; then
             continue
         fi
                 
-        configs="configs/defconfig.common;configs/defconfig.$target;configs/defconfig.debug_$BUILD_DEBUG"
+        configs="configs/defconfig.common;configs/defconfig.$target"
         for defconf in `echo "$target_json" | jq -c '.features[]' | tr -d '"'`; do
             configs="$configs;configs/defconfig.$defconf"
         done
