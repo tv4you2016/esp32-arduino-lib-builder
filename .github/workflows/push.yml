@@ -1,4 +1,4 @@
-name: S3 OPI 120Mhz no reset vsync
+name: IDF v5.1
 on:
   workflow_dispatch:  # Manually start a workflow
 
