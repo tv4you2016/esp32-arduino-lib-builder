@@ -186,7 +186,7 @@ def main() -> None:
                         action=argparse.BooleanOptionalAction,
                         default=False,
                         required=False,
-                        help="Enable/disable copying the compiled libraries to arduino-esp32. Enabled by default")
+                        help="Enable/disable copying the compiled libraries to arduino-esp32. Disabled by default")
 
     parser.add_argument("-c", "--arduino-path",
                         metavar="<arduino path>",
