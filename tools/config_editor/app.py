@@ -15,7 +15,7 @@ Note that this application still needs the requirements from esp32-arduino-lib-b
 Command line arguments:
     -t, --target <target>          Comma-separated list of targets to be compiled.
                                    Choose from: all, esp32, esp32s2, esp32s3, esp32c2, esp32c3, esp32c6, esp32h2. Default: all except esp32c2
-    --copy, --no-copy              Enable/disable copying the compiled libraries to arduino-esp32. Enabled by default
+    --copy, --no-copy              Enable/disable copying the compiled libraries to arduino-esp32. Disabled by default
     -c, --arduino-path <path>      Path to arduino-esp32 directory. Default: OS dependent
     -A, --arduino-branch <branch>  Branch of the arduino-esp32 repository to be used. Default: set by the build script
     -I, --idf-branch <branch>      Branch of the ESP-IDF repository to be used. Default: set by the build script
@@ -97,7 +97,7 @@ class ConfigEditorApp(App):
 
     # Set the application options
     supported_targets = []
-    setting_enable_copy = True
+    setting_enable_copy = False
 
     # Options to be set by the command line arguments
     setting_target = ""
@@ -184,7 +184,7 @@ def main() -> None:
     parser.add_argument("--copy",
                         type=bool,
                         action=argparse.BooleanOptionalAction,
-                        default=True,
+                        default=False,
                         required=False,
                         help="Enable/disable copying the compiled libraries to arduino-esp32. Enabled by default")
 
