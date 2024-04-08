@@ -63,11 +63,11 @@ while getopts ":A:I:i:c:t:b:sde" opt; do
             ;;
         b )
             b=$OPTARG
-            if [ "$b" != "build" ] && 
-               [ "$b" != "menuconfig" ] && 
-               [ "$b" != "reconfigure" ] && 
-               [ "$b" != "idf-libs" ] && 
-               [ "$b" != "copy-bootloader" ] && 
+            if [ "$b" != "build" ] &&
+               [ "$b" != "menuconfig" ] &&
+               [ "$b" != "reconfigure" ] &&
+               [ "$b" != "idf-libs" ] &&
+               [ "$b" != "copy-bootloader" ] &&
                [ "$b" != "mem-variant" ]; then
                 print_help
             fi
@@ -134,7 +134,7 @@ if [ "$BUILD_TYPE" != "all" ]; then
             # Skip building for targets that are not in the $TARGET array
             continue
         fi
-                
+
         configs="configs/defconfig.common;configs/defconfig.$target"
         for defconf in `echo "$target_json" | jq -c '.features[]' | tr -d '"'`; do
             configs="$configs;configs/defconfig.$defconf"
@@ -188,7 +188,7 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
             continue
         fi
     fi
-    
+
     # Skip chips that should not be a part of the final libs
     # WARNING!!! this logic needs to be updated when cron builds are split into jobs
     if [ "$TARGET" = "all" ] && [ $target_skip -eq 1 ]; then
