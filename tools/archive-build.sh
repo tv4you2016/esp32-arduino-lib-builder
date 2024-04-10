@@ -61,7 +61,7 @@ cd framework-arduinoespressif32/libraries
 rm -rf **/examples
 cd ../tools/esp32-arduino-libs
 rm -rf **/flags
-cd ../../
+cd ../../../
 # If the framework is needed as tar.gz uncomment next line
 # tar --exclude=.* -zcf ../$pio_archive_path framework-arduinoespressif32/
 7z a -mx=9 -tzip -xr'!.*' ../$pio_zip_archive_path framework-arduinoespressif32/
