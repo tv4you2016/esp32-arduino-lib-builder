@@ -73,7 +73,10 @@ if [ $? -ne 0 ]; then exit 1; fi
 #
 # remove code and libraries not needed/wanted for Tasmota framework
 #
-rm -rf "$AR_COMPS/arduino/cores/esp32/chip-debug-report.cpp"
+rm -rf "$AR_COMPS/arduino/docs"
+rm -rf "$AR_COMPS/arduino/idf_component_examples"
+rm -rf "$AR_COMPS/arduino/package"
+rm -rf "$AR_COMPS/arduino/tests"
 rm -rf "$AR_COMPS/arduino/cores/esp32/chip-debug-report.h"
 rm -rf "$AR_COMPS/arduino/libraries/RainMaker"
 rm -rf "$AR_COMPS/arduino/libraries/Insights"
@@ -93,6 +96,5 @@ rm -rf "$AR_COMPS/arduino/libraries/TFLiteMicro"
 
 # Patch to remove USB from Arduino CMakeLists.txt
 cd "$AR_COMPS/arduino"
-ls
 patch -p1 -N -i ../../patches/Arduino_CMakeLists.diff
 cd -
