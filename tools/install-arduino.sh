@@ -90,3 +90,8 @@ rm -rf "$AR_COMPS/arduino/libraries/ESP32"
 rm -rf "$AR_COMPS/arduino/libraries/ESP_SR"
 rm -rf "$AR_COMPS/arduino/libraries/ESP_NOW"
 rm -rf "$AR_COMPS/arduino/libraries/TFLiteMicro"
+
+# Patch to remove USB from Arduino CMakeLists.txt
+cd "$AR_COMPS/arduino" 
+patch -p1 -N -i "$IDF_PATH/../patches/Arduino_CMakeLists.diff"
+cd -
