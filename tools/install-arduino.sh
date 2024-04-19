@@ -94,5 +94,5 @@ rm -rf "$AR_COMPS/arduino/libraries/TFLiteMicro"
 # Patch to remove USB from Arduino CMakeLists.txt
 cd "$AR_COMPS/arduino"
 ls
-patch -p1 -N -i ../patches/Arduino_CMakeLists.diff
+patch -p1 -N -i ../../patches/Arduino_CMakeLists.diff
 cd -

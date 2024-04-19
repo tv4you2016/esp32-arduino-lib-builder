@@ -13,7 +13,7 @@ index d3972bf06a..3813da3468 100644
 @@ -149,17 +148,6 @@ set(ARDUINO_LIBRARY_Update_SRCS
    libraries/Update/src/Updater.cpp
    libraries/Update/src/HttpsOTAUpdate.cpp)
- 
+
 -set(ARDUINO_LIBRARY_USB_SRCS
 -  libraries/USB/src/USBHID.cpp
 -  libraries/USB/src/USBMIDI.cpp
@@ -31,7 +31,7 @@ index d3972bf06a..3813da3468 100644
 @@ -247,9 +235,6 @@ function(maybe_add_component component_name)
      endif()
  endfunction()
- 
+
 -if(IDF_TARGET MATCHES "esp32s2|esp32s3" AND CONFIG_TINYUSB_ENABLED)
 -    maybe_add_component(arduino_tinyusb)
 -endif()
