@@ -259,9 +259,6 @@ for component in `ls "$AR_COMPS"`; do
         echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
     fi
 done
-# TinyUSB version
-component_version="tinyusb: "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" symbolic-ref --short HEAD || git -C "$AR_COMPS/arduino_tinyusb/tinyusb" tag --points-at HEAD)" "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" rev-parse --short HEAD)
-echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
 # managed components version
 for component in `ls "$AR_MANAGED_COMPS"`; do
     if [ -d "$AR_MANAGED_COMPS/$component/.git" ]; then
