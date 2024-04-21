@@ -259,6 +259,8 @@ for component in `ls "$AR_COMPS"`; do
         echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
     fi
 done
+# esp32-camera version
+component_version="esp32-camera: "$(git -C "$AR_COMPS/esp32-camera" symbolic-ref --short HEAD || git -C "$AR_COMPS/esp32-camera" tag --points-at HEAD)" "$(git -C "$AR_COMPS/esp32-camera" rev-parse --short HEAD)
 # managed components version
 for component in `ls "$AR_MANAGED_COMPS"`; do
     if [ -d "$AR_MANAGED_COMPS/$component/.git" ]; then
