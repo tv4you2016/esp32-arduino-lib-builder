@@ -255,9 +255,6 @@ for component in `ls "$AR_COMPS"`; do
         echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
     fi
 done
-# TinyUSB version
-component_version="tinyusb: "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" symbolic-ref --short HEAD || git -C "$AR_COMPS/arduino_tinyusb/tinyusb" tag --points-at HEAD)" "$(git -C "$AR_COMPS/arduino_tinyusb/tinyusb" rev-parse --short HEAD)
-echo $component_version >> "$AR_TOOLS/esp32-arduino-libs/versions.txt"
 # managed components version
 for component in `ls "$AR_MANAGED_COMPS"`; do
     if [ -d "$AR_MANAGED_COMPS/$component/.git" ]; then
@@ -272,11 +269,11 @@ done
 export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
 
 # update package_esp32_index.template.json
-if [ "$BUILD_TYPE" = "all" ]; then
-    python3 ./tools/gen_tools_json.py -i "$IDF_PATH" -j "$AR_COMPS/arduino/package/package_esp32_index.template.json" -o "$AR_OUT/"
-    python3 ./tools/gen_tools_json.py -i "$IDF_PATH" -o "$TOOLS_JSON_OUT/"
-    if [ $? -ne 0 ]; then exit 1; fi
-fi
+#if [ "$BUILD_TYPE" = "all" ]; then
+#    python3 ./tools/gen_tools_json.py -i "$IDF_PATH" -j "$AR_COMPS/arduino/package/package_esp32_index.template.json" -o "$AR_OUT/"
+#    python3 ./tools/gen_tools_json.py -i "$IDF_PATH" -o "$TOOLS_JSON_OUT/"
+#    if [ $? -ne 0 ]; then exit 1; fi
+#fi
 
 # Generate PlatformIO library manifest file
 if [ "$BUILD_TYPE" = "all" ]; then
