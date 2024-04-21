@@ -287,6 +287,7 @@ echo "#define ARDUINO_ESP32_GIT_VER 0x$AR_Commit_short
 #define ARDUINO_ESP32_RELEASE_$AR_VERSION_UNDERSCORE
 #define ARDUINO_ESP32_RELEASE \"$AR_VERSION_UNDERSCORE\"" >> "$AR_ROOT/core_version.h"
 
+# archive the build
 if [ $ARCHIVE_OUT -eq 1 ]; then
     ./tools/archive-build.sh "$TARGET"
     if [ $? -ne 0 ]; then exit 1; fi
