@@ -50,9 +50,7 @@
 			"idf_libs":["qio","60m"],
 			"bootloaders":[
 				["qio","60m"],
-				["dio","60m"],
-				["qio","30m"],
-				["dio","30m"]
+				["dio","60m"]
 			],
 			"mem_variants":[
 				["dio","60m"]
@@ -64,9 +62,7 @@
 			"idf_libs":["qio","64m"],
 			"bootloaders":[
 				["qio","64m"],
-				["dio","64m"],
-				["qio","16m"],
-				["dio","16m"]
+				["dio","64m"]
 			],
 			"mem_variants":[
 				["dio","64m"]
@@ -78,9 +74,7 @@
 			"idf_libs":["qio","80m"],
 			"bootloaders":[
 				["qio","80m"],
-				["dio","80m"],
-				["qio","40m"],
-				["dio","40m"]
+				["dio","80m"]
 			],
 			"mem_variants":[
 				["dio","80m"]
@@ -92,9 +86,7 @@
 			"idf_libs":["qio","80m"],
 			"bootloaders":[
 				["qio","80m"],
-				["dio","80m"],
-				["qio","40m"],
-				["dio","40m"]
+				["dio","80m"]
 			],
 			"mem_variants":[
 				["dio","80m"]
@@ -106,9 +98,7 @@
 			"idf_libs":["qio","80m"],
 			"bootloaders":[
 				["qio","80m"],
-				["dio","80m"],
-				["qio","40m"],
-				["dio","40m"]
+				["dio","80m"]
 			],
 			"mem_variants":[
 				["dio","80m"]
@@ -120,9 +110,7 @@
 			"idf_libs":["qio","80m"],
 			"bootloaders":[
 				["qio","80m"],
-				["dio","80m"],
-				["qio","40m"],
-				["dio","40m"]
+				["dio","80m"]
 			],
 			"mem_variants":[
 				["dio","80m"]
