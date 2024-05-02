@@ -5,8 +5,6 @@ source ./tools/config.sh
 CAMERA_REPO_URL="https://github.com/espressif/esp32-camera.git"
 TINYUSB_REPO_URL="https://github.com/hathach/tinyusb.git"
 TINYUSB_REPO_DIR="$AR_COMPS/arduino_tinyusb/tinyusb"
-ESPDSP_REPO_URL="https://github.com/espressif/esp-dsp.git"
-ESPDSP_REPO_DIR="$AR_COMPS/esp-dsp/espdsp"
 
 #
 # CLONE/UPDATE ESP32-CAMERA
@@ -37,20 +35,6 @@ if [ ! -d "$TINYUSB_REPO_DIR" ]; then
        git clone -b master --depth 1 "$TINYUSB_REPO_URL" "$TINYUSB_REPO_DIR"
 else
        cd $TINYUSB_REPO_DIR
-       git pull
-       # -ff is for cleaning untracked files as well as submodules
-       git clean -ffdx
-fi
-if [ $? -ne 0 ]; then exit 1; fi
-
-#
-# CLONE/UPDATE ESP-DSP
-#
-echo "Updating ESP-DSP..."
-if [ ! -d "$ESPDSP_REPO_DIR" ]; then
-       git clone -b master --depth 1 "$ESPDSP_REPO_URL" "$ESPDSP_REPO_DIR"
-else
-       cd $ESPDSP_REPO_DIR
        git pull
        # -ff is for cleaning untracked files as well as submodules
        git clean -ffdx
