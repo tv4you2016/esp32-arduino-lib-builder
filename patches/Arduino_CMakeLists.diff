@@ -1,15 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index d3972bf06a..88c9910f76 100644
+index d3972bf06a..3813da3468 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -88,14 +88,12 @@ set(ARDUINO_ALL_LIBRARIES
-   LittleFS
-   NetBIOS
-   Network
--  PPP
-   Preferences
-   SD_MMC
-   SD
+@@ -95,7 +95,6 @@ set(ARDUINO_ALL_LIBRARIES
    SPI
    Ticker
    Update
@@ -17,18 +10,7 @@ index d3972bf06a..88c9910f76 100644
    WebServer
    WiFi
    Wire
-@@ -128,10 +126,6 @@ set(ARDUINO_LIBRARY_LittleFS_SRCS libraries/LittleFS/src/LittleFS.cpp)
-
- set(ARDUINO_LIBRARY_NetBIOS_SRCS libraries/NetBIOS/src/NetBIOS.cpp)
-
--set(ARDUINO_LIBRARY_PPP_SRCS
--  libraries/PPP/src/PPP.cpp
--  libraries/PPP/src/ppp.c)
--
- set(ARDUINO_LIBRARY_Preferences_SRCS libraries/Preferences/src/Preferences.cpp)
-
- set(ARDUINO_LIBRARY_SD_MMC_SRCS libraries/SD_MMC/src/SD_MMC.cpp)
-@@ -149,17 +143,6 @@ set(ARDUINO_LIBRARY_Update_SRCS
+@@ -149,17 +148,6 @@ set(ARDUINO_LIBRARY_Update_SRCS
    libraries/Update/src/Updater.cpp
    libraries/Update/src/HttpsOTAUpdate.cpp)
 
@@ -46,7 +28,7 @@ index d3972bf06a..88c9910f76 100644
  set(ARDUINO_LIBRARY_WebServer_SRCS
    libraries/WebServer/src/WebServer.cpp
    libraries/WebServer/src/Parsing.cpp
-@@ -247,9 +230,6 @@ function(maybe_add_component component_name)
+@@ -247,9 +235,6 @@ function(maybe_add_component component_name)
      endif()
  endfunction()
 
@@ -56,13 +38,3 @@ index d3972bf06a..88c9910f76 100644
  if(NOT CONFIG_ARDUINO_SELECTIVE_COMPILATION OR CONFIG_ARDUINO_SELECTIVE_ArduinoOTA)
      maybe_add_component(esp_https_ota)
  endif()
-diff --git a/idf_component.yml b/idf_component.yml
-index ae548c41d4..7a4e094050 100644
---- a/idf_component.yml
-+++ b/idf_component.yml
-@@ -45,5 +45,4 @@ dependencies:
-   idf: ">=5.1"
-   # mdns 1.2.3 is necessary to build H2 with no WiFi
-   mdns: "^1.2.3"
--  espressif/esp_modem: "^1.1.0"
-   joltwallet/littlefs: "^1.14.1"
