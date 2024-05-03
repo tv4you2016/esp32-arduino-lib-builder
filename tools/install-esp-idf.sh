@@ -80,6 +80,8 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	rm -rf components/perfmon
 	rm -rf components/riscv
 	rm -rf components/app_trace
+        rm -rf components/ieee802154
+        rm -rf components/driver/test_apps
 	cd -
 
     # Get the exact IDF version from file "version.txt"
