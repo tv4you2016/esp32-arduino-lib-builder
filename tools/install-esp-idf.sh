@@ -71,7 +71,6 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 
     # remove code and component(s) not needed/wanted for Tasmota framework solo1
     cd $IDF_PATH
-	rm -rf components/usb
 	rm -rf components/esp-gdbstub
 	rm -rf components/openthread
 	rm -rf components/espcoredump
