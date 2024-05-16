@@ -69,11 +69,26 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	patch -p1 -N -i ../patches/esp32s2_i2c_ll_master_init.diff
 	cd -
 
-        # Get the exact IDF version from file "version.txt"
+    # remove code and component(s) not needed/wanted for Tasmota framework ITEAD
+    cd $IDF_PATH
+	rm -rf components/usb
+        rm -rf components/esp-gdbstub
+	rm -rf components/openthread
+	rm -rf components/espcoredump
+	rm -rf components/esp_lcd
+	rm -rf components/touch_element
+	rm -rf components/perfmon
+	rm -rf components/riscv
+	rm -rf components/app_trace
+        rm -rf components/ieee802154
+        rm -rf components/driver/test_apps
+	cd -
+
+    # Get the exact IDF version from file "version.txt"
 	cd $IDF_PATH
 	export IDF_VERSION=$(<version.txt)
         echo "IDF version: $IDF_VERSION"
-	cd -  
+	cd -
 fi
 
 #
