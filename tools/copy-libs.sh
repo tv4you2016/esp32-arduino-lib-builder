@@ -71,6 +71,13 @@ PIO_LD_FLAGS=""
 PIO_LD_FUNCS=""
 PIO_LD_SCRIPTS=""
 
+TOOLCHAIN_PREFIX=""
+if [ "$IS_XTENSA" = "y" ]; then
+	TOOLCHAIN="xtensa-$IDF_TARGET-elf"
+else
+	TOOLCHAIN="riscv32-esp-elf"
+fi
+
 #collect includes, defines and c-flags
 str=`cat build/compile_commands.json | grep arduino-lib-builder-gcc.c | grep command | cut -d':' -f2 | cut -d',' -f1`
 str="${str:2:${#str}-1}" #remove leading space and quotes
@@ -101,7 +108,7 @@ for item in "${@:2:${#@}-5}"; do
 	elif [ "$prefix" = "-O" ]; then
 		PIO_CC_FLAGS+="$item "
 	elif [[ "$item" != "-Wall" && "$item" != "-Werror=all"  && "$item" != "-Wextra" ]]; then
-		if [[ "${item:0:23}" != "-mfix-esp32-psram-cache" && "${item:0:18}" != "-fmacro-prefix-map" && "${item:0:20}" != "-fdiagnostics-color=" ]]; then
+		if [[ "${item:0:23}" != "-mfix-esp32-psram-cache" && "${item:0:18}" != "-fmacro-prefix-map" && "${item:0:20}" != "-fdiagnostics-color=" && "${item:0:19}" != "-fdebug-prefix-map=" ]]; then
 			C_FLAGS+="$item "
 		fi
 	fi
@@ -115,7 +122,7 @@ set -- $str
 for item in "${@:2:${#@}-5}"; do
 	prefix="${item:0:2}"
 	if [[ "$prefix" != "-I" && "$prefix" != "-D" && "$item" != "-Wall" && "$item" != "-Werror=all"  && "$item" != "-Wextra" && "$prefix" != "-O" ]]; then
-		if [[ "${item:0:23}" != "-mfix-esp32-psram-cache" && "${item:0:18}" != "-fmacro-prefix-map" && "${item:0:20}" != "-fdiagnostics-color=" ]]; then
+		if [[ "${item:0:23}" != "-mfix-esp32-psram-cache" && "${item:0:18}" != "-fmacro-prefix-map" && "${item:0:20}" != "-fdiagnostics-color=" && "${item:0:19}" != "-fdebug-prefix-map=" ]]; then
 			AS_FLAGS+="$item "
 			if [[ $C_FLAGS == *"$item"* ]]; then
 				PIO_CC_FLAGS+="$item "
@@ -134,7 +141,7 @@ set -- $str
 for item in "${@:2:${#@}-5}"; do
 	prefix="${item:0:2}"
 	if [[ "$prefix" != "-I" && "$prefix" != "-D" && "$item" != "-Wall" && "$item" != "-Werror=all"  && "$item" != "-Wextra" && "$prefix" != "-O" ]]; then
-		if [[ "${item:0:23}" != "-mfix-esp32-psram-cache" && "${item:0:18}" != "-fmacro-prefix-map" && "${item:0:20}" != "-fdiagnostics-color=" ]]; then
+		if [[ "${item:0:23}" != "-mfix-esp32-psram-cache" && "${item:0:18}" != "-fmacro-prefix-map" && "${item:0:20}" != "-fdiagnostics-color=" && "${item:0:19}" != "-fdebug-prefix-map=" ]]; then
 			CPP_FLAGS+="$item "
 			if [[ $PIO_CC_FLAGS != *"$item"* ]]; then
 				PIO_CXX_FLAGS+="$item "
@@ -204,7 +211,7 @@ for item; do
 				add_next=0
 				is_script=0
 				is_dir=0
-			elif [[ "${item:0:23}" != "-mfix-esp32-psram-cache" && "${item:0:18}" != "-fmacro-prefix-map" && "${item:0:17}" != "-Wl,--start-group" && "${item:0:15}" != "-Wl,--end-group" ]]; then
+			elif [[ "${item:0:23}" != "-mfix-esp32-psram-cache" && "${item:0:18}" != "-fmacro-prefix-map" && "${item:0:19}" != "-fdebug-prefix-map=" && "${item:0:17}" != "-Wl,--start-group" && "${item:0:15}" != "-Wl,--end-group" ]]; then
 				LD_FLAGS+="$item "
 				PIO_LD_FLAGS+="$item "
 			fi
@@ -402,7 +409,13 @@ for item; do
 			mkdir -p "$out_cpath$rel_p"
 			cp -n $f "$out_cpath$rel_p/"
 		done
-  		# Temporary measure to fix issues caused by https://github.com/espressif/esp-idf/commit/dc4731101dd567cc74bbe4d0f03afe52b7db9afb#diff-1d2ce0d3989a80830fdf230bcaafb3117f32046d16cf46616ac3d55b4df2a988R17
+		for f in `find "$item" -name '*.inc'`; do
+			rel_f=${f#*$item}
+			rel_p=${rel_f%/*}
+			mkdir -p "$out_cpath$rel_p"
+			cp -n $f "$out_cpath$rel_p/"
+		done
+		# Temporary measure to fix issues caused by https://github.com/espressif/esp-idf/commit/dc4731101dd567cc74bbe4d0f03afe52b7db9afb#diff-1d2ce0d3989a80830fdf230bcaafb3117f32046d16cf46616ac3d55b4df2a988R17
 		if [[ "$fname" == "bt" && "$out_sub" == "/include/$IDF_TARGET/include" && -f "$ipath/controller/$IDF_TARGET/esp_bt_cfg.h" ]]; then
 			mkdir -p "$AR_SDK/include/$fname/controller/$IDF_TARGET"
 			cp -n "$ipath/controller/$IDF_TARGET/esp_bt_cfg.h" "$AR_SDK/include/$fname/controller/$IDF_TARGET/esp_bt_cfg.h"
@@ -478,11 +491,13 @@ echo -n "$LD_FLAGS" > "$FLAGS_DIR/ld_flags"
 echo -n "$LD_SCRIPTS" > "$FLAGS_DIR/ld_scripts"
 echo -n "$AR_LIBS" > "$FLAGS_DIR/ld_libs"
 
-# sr model.bin
-if [ -f "build/srmodels/srmodels.bin" ]; then
-	mkdir -p "$AR_SDK/esp_sr"
-	cp -f "build/srmodels/srmodels.bin" "$AR_SDK/esp_sr/"
-	cp -f "partitions.csv" "$AR_SDK/esp_sr/"
+# copy zigbee + zboss lib
+if [ -d "managed_components/espressif__esp-zigbee-lib/lib/$IDF_TARGET/" ]; then
+	cp -r "managed_components/espressif__esp-zigbee-lib/lib/$IDF_TARGET"/* "$AR_SDK/lib/"
+fi
+
+if [ -d "managed_components/espressif__esp-zboss-lib/lib/$IDF_TARGET/" ]; then
+	cp -r "managed_components/espressif__esp-zboss-lib/lib/$IDF_TARGET"/* "$AR_SDK/lib/"
 fi
 
 # sdkconfig
@@ -513,6 +528,13 @@ for item; do
 	for lib in `find "$item" -name '*.a'`; do
 		copy_precompiled_lib "$lib"
 	done
+done
+
+for lib in "openthread" "espressif__esp-tflite-micro" "bt"; do
+	if [ -f "$AR_SDK/lib/lib$lib.a" ]; then
+		echo "Stripping $AR_SDK/lib/lib$lib.a"
+		"$TOOLCHAIN-strip" -g "$AR_SDK/lib/lib$lib.a"
+	fi
 done
 
 # Handle Mem Variants
