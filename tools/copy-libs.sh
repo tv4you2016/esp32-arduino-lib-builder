@@ -502,6 +502,10 @@ if [ -d "managed_components/espressif__esp-zboss-lib/lib/$IDF_TARGET/" ]; then
 	cp -r "managed_components/espressif__esp-zboss-lib/lib/$IDF_TARGET"/* "$AR_SDK/lib/"
 fi
 
+if [ -d "managed_components/espressif__esp32-camera/driver/private_include/" ]; then
+	cp -r "managed_components/espressif__esp32-camera/driver/private_include/cam_hal.h" "$AR_SDK/include/espressif__esp32-camera/driver/include/"
+fi
+
 # sdkconfig
 cp -f "sdkconfig" "$AR_SDK/sdkconfig"
 
@@ -533,7 +537,7 @@ for item; do
 	done
 done
 
-for lib in "openthread" "espressif__esp-tflite-micro" "bt" "espressif__esp_modem" "espressif__esp-zboss-lib" "espressif__esp-zigbee-lib" "espressif__mdns" "espressif__esp-dsp" "joltwallet__littlefs"; do
+for lib in "openthread" "espressif__esp-tflite-micro" "bt" "espressif__esp_modem" "espressif__esp-zboss-lib" "espressif__esp-zigbee-lib" "espressif__mdns" "espressif__esp-dsp" "espressif__esp32-camera" "joltwallet__littlefs"; do
 	if [ -f "$AR_SDK/lib/lib$lib.a" ]; then
 		echo "Stripping $AR_SDK/lib/lib$lib.a"
 		"$TOOLCHAIN-strip" -g "$AR_SDK/lib/lib$lib.a"
