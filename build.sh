@@ -82,11 +82,7 @@ mkdir -p dist
 rm -rf dependencies.lock
 
 if [ $SKIP_ENV -eq 0 ]; then
-    echo "* Installing/Updating ESP-IDF and all components..."
-    # update components from git
-    ./tools/update-components.sh
-    if [ $? -ne 0 ]; then exit 1; fi
-
+    echo "* Installing ESP-IDF/Arduino and all components..."
     # install arduino component
     ./tools/install-arduino.sh
     if [ $? -ne 0 ]; then exit 1; fi
