@@ -11,7 +11,7 @@ fi
 
 # Arduino branch to use
 if [ -z $AR_BRANCH ]; then
-    AR_BRANCH="master"
+    AR_BRANCH="BLE_h2zero"
 fi
 
 if [ -z $IDF_TARGET ]; then
@@ -26,7 +26,7 @@ if [ -z $IDF_TARGET ]; then
 fi
 
 # Owner of the target ESP32 Arduino repository
-AR_USER="espressif"
+AR_USER="Jason2866"
 
 # IDF commit to use
 #IDF_COMMIT=""
