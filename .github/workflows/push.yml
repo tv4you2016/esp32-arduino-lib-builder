@@ -1,4 +1,4 @@
-name: espressif Arduino master
+name: h2zero BLE
 on:
   workflow_dispatch:  # Manually start a workflow
 
