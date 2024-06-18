@@ -21,7 +21,7 @@ cp -f ../components/arduino/CMa* arduino-esp32
 cp -f ../components/arduino/idf* arduino-esp32
 cp -f ../components/arduino/Kco* arduino-esp32
 cp -f ../components/arduino/pac* arduino-esp32
-cp -f $IDF_PATH/components/bt arduino-esp32/libraries
+cp -rf $IDF_PATH/components/bt arduino-esp32/libraries
 rm -rf arduino-esp32/docs
 rm -rf arduino-esp32/tests
 rm -rf arduino-esp32/idf_component_examples
