@@ -93,3 +93,4 @@ rm -rf "$AR_COMPS/arduino/libraries/ESP32"
 rm -rf "$AR_COMPS/arduino/libraries/ESP_SR"
 rm -rf "$AR_COMPS/arduino/libraries/ESP_NOW"
 rm -rf "$AR_COMPS/arduino/libraries/TFLiteMicro"
+rm -rf "$AR_COMPS/arduino/libraries/OpenThread
