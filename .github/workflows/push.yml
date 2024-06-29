@@ -1,4 +1,4 @@
-name: Arduino Core 2.0.14 latest IDF
+name: Arduino Core 2.0.x
 
 on:
   workflow_dispatch:  # Manually start a workflow
