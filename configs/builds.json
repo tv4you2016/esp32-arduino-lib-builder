@@ -146,7 +146,7 @@
 				["qio","120m","qio_ram"],
 				["qio","120m","opi_ram"],
 				["qio","80m","qio_ram"],
-                ["qio","80m","opi_ram"],
+				["qio","80m","opi_ram"],
 				["opi","120m","qio_ram"],
 				["opi","120m","opi_ram"],
 				["opi","80m","qio_ram"],
