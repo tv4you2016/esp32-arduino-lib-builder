@@ -1,4 +1,4 @@
-name: Arduino IDF 5.1 ITEAD
+name: Arduino IDF 5.2 ITEAD
 
 on:
   workflow_dispatch:  # Manually start a workflow
