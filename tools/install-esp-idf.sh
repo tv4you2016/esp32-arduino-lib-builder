@@ -37,7 +37,7 @@ if [ ! -d "$IDF_PATH" ]; then
     idf_was_installed="1"
 else
     # update existing branch
-    echo "ESP-IDF is already installed, updating branch '$IDF_BRANCH'"
+    echo "ESP-IDF is already installed, updating branch $IDF_BRANCH"
     cd $IDF_PATH
     git pull
     git reset --hard $IDF_BRANCH
@@ -61,18 +61,30 @@ fi
 #
 
 if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
-    git submodule update --recursive
+        git submodule update --recursive
 	$IDF_PATH/install.sh
 
-	# Temporarily patch the ESP32-S2 I2C LL driver to keep the clock source
+	# 1) Temporarily patch the ESP32-S2 I2C LL driver to keep the clock source
+        # 2) Temporarily fix for mmu map and late init of psram https://github.com/espressif/arduino-esp32/issues/9936
 	cd $IDF_PATH
-	patch -p1 -N -i "$AR_ROOT/patches/esp32s2_i2c_ll_master_init.diff"
+	patch -p1 -N -i ../patches/esp32s2_i2c_ll_master_init.diff
+        patch -p1 -N -i ../patches/mmu_map.diff
+	patch -p1 -N -i ../patches/lwip_max_tcp_pcb.diff
 	cd -
 
-	# Patch to use the framework included "framework-arduinoespressif32-libs"
+        # Patch to use the framework included "framework-arduinoespressif32-libs"
+        # Get the exact IDF version from file "version.txt"
 	cd "$AR_COMPS/arduino"
+	cd $IDF_PATH
 	patch -p1 -N -i "$AR_ROOT/patches/platformio-build.diff"
+	export IDF_VERSION=$(<version.txt)
 	cd -
+
+        # Get the exact IDF version from file "version.txt"
+	cd $IDF_PATH
+	export IDF_VERSION=$(<version.txt)
+        echo "IDF version: $IDF_VERSION"
+	cd -  
 fi
 
 #
