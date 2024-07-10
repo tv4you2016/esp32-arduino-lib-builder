@@ -79,12 +79,6 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	patch -p1 -N -i "$AR_ROOT/patches/platformio-build.diff"
 	export IDF_VERSION=$(<version.txt)
 	cd -
-
-        # Get the exact IDF version from file "version.txt"
-	cd $IDF_PATH
-	export IDF_VERSION=$(<version.txt)
-        echo "IDF version: $IDF_VERSION"
-	cd -  
 fi
 
 #
