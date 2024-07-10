@@ -64,6 +64,10 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
         git submodule update --recursive
 	$IDF_PATH/install.sh
 
+	cd $IDF_PATH
+	patch -p1 -N -i ../patches/lwip_max_tcp_pcb.diff
+	cd -
+
     # remove code and component(s) not needed/wanted for Tasmota framework solo1
     cd $IDF_PATH
         rm -rf components/esp-gdbstub
