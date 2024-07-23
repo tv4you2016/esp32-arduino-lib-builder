@@ -1,4 +1,4 @@
-name: h2zero BLE
+name: Speech recogn. S3 linker fix
 on:
   workflow_dispatch:  # Manually start a workflow
 
