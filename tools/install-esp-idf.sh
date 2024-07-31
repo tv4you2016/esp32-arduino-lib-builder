@@ -65,7 +65,7 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	$IDF_PATH/install.sh
 
 	cd $IDF_PATH
-	patch -p1 -N -i ../patches/lwip_max_tcp_pcb.diff
+	patch -p1 -N -i $AR_PATCHES/lwip_max_tcp_pcb.diff
 	cd -
 
     # remove code and component(s) not needed/wanted for Tasmota framework ITEAD
