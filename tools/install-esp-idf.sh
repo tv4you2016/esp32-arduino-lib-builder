@@ -75,7 +75,7 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
         # Patch to use the framework included "framework-arduinoespressif32-libs"
         # Get the exact IDF version from file "version.txt"
 	cd "$AR_COMPS/arduino"
-	patch -p1 -N -i "$AR_ROOT/patches/platformio-build.diff"
+	patch -p1 -N -i $AR_PATCHES/platformio-build.diff
 	export IDF_VERSION=$(<version.txt)
 	cd -
 fi
