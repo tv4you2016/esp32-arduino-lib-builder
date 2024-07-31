@@ -66,12 +66,12 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 
 	# Temporarily patch the ESP32-S2 I2C LL driver to keep the clock source
 	cd $IDF_PATH
-	patch -p1 -N -i "$AR_ROOT/patches/esp32s2_i2c_ll_master_init.diff"
+	patch -p1 -N -i $AR_PATCHES/esp32s2_i2c_ll_master_init.diff
 	cd -
 
 	# Patch to use the framework included "framework-arduinoespressif32-libs"
 	cd "$AR_COMPS/arduino"
-	patch -p1 -N -i "$AR_ROOT/patches/platformio-build.diff"
+	patch -p1 -N -i $AR_PATCHES/platformio-build.diff
 	cd -
 fi
 
