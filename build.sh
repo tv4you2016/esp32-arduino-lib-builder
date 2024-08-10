@@ -100,6 +100,9 @@ else
     source ./tools/config.sh
 fi
 
+# avoid compile stop when files of managed components have been changed
+rm -rf $AR_MANAGED_COMPS/.component_hash
+
 if [ "$BUILD_TYPE" != "all" ]; then
     if [ "$TARGET" = "all" ]; then
         echo "ERROR: You need to specify target for non-default builds"
