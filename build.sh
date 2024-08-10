@@ -201,6 +201,9 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
 
     echo "* Build IDF-Libs: $idf_libs_configs"
     rm -rf build sdkconfig
+    pushd $AR_MANAGED_COMPS
+    rm -- **/.component_hash
+    popd
     idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$idf_libs_configs" idf-libs
     if [ $? -ne 0 ]; then exit 1; fi
 
@@ -213,6 +216,9 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
 
         echo "* Build BootLoader: $bootloader_configs"
         rm -rf build sdkconfig
+        pushd $AR_MANAGED_COMPS
+        rm -- **/.component_hash
+        popd
         idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$bootloader_configs" copy-bootloader
         if [ $? -ne 0 ]; then exit 1; fi
     done
@@ -226,6 +232,9 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
 
         echo "* Build Memory Variant: $mem_configs"
         rm -rf build sdkconfig
+        pushd $AR_MANAGED_COMPS
+        rm -- **/.component_hash
+        popd
         idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$mem_configs" mem-variant
         if [ $? -ne 0 ]; then exit 1; fi
     done
