@@ -10,6 +10,9 @@ if ! [ -x "$(command -v git)" ]; then
     exit 1
 fi
 
+# Fixes building some components. See https://github.com/espressif/arduino-esp32/issues/10167
+export IDF_COMPONENT_OVERWRITE_MANAGED_COMPONENTS=1
+
 export TARGET="esp32"
 BUILD_TYPE="all"
 SKIP_ENV=0
@@ -197,9 +200,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
 
     echo "* Build IDF-Libs: $idf_libs_configs"
     rm -rf build sdkconfig
-    pushd $AR_MANAGED_COMPS
-    rm -- **/.component_hash
-    popd
     idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$idf_libs_configs" idf-libs
     if [ $? -ne 0 ]; then exit 1; fi
 
@@ -212,9 +212,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
 
         echo "* Build BootLoader: $bootloader_configs"
         rm -rf build sdkconfig
-        pushd $AR_MANAGED_COMPS
-        rm -- **/.component_hash
-        popd
         idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$bootloader_configs" copy-bootloader
         if [ $? -ne 0 ]; then exit 1; fi
     done
@@ -228,9 +225,6 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
 
         echo "* Build Memory Variant: $mem_configs"
         rm -rf build sdkconfig
-        pushd $AR_MANAGED_COMPS
-        rm -- **/.component_hash
-        popd
         idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$mem_configs" mem-variant
         if [ $? -ne 0 ]; then exit 1; fi
     done
