@@ -18,7 +18,7 @@ fi
 # Fixes building some components. See https://github.com/espressif/arduino-esp32/issues/10167
 export IDF_COMPONENT_OVERWRITE_MANAGED_COMPONENTS=1
 
-export TARGET="esp32c3"
+export TARGET="all"
 BUILD_TYPE="all"
 SKIP_ENV=0
 COPY_OUT=0
