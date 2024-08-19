@@ -6,12 +6,12 @@ if [ -z $IDF_PATH ]; then
 fi
 
 if [ -z $IDF_BRANCH ]; then
-    export IDF_BRANCH="release/v5.2"
+    export IDF_BRANCH="release/v5.3"
 fi
 
 # Arduino branch to use
 if [ -z $AR_BRANCH ]; then
-    AR_BRANCH="release/v5.2"
+    AR_BRANCH="release/v3.1.x"
 fi
 
 if [ -z $IDF_TARGET ]; then
