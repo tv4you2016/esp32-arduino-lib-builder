@@ -10,7 +10,7 @@ pio_zip_archive_path="dist/framework-arduinoespressif32-$TARGET-$idf_version_str
 mkdir -p dist && rm -rf "$archive_path" "$build_archive_path"
 
 cd out
-echo "Creating PlatformIO Tasmota framework-arduinoespressif32"
+echo "Creating pioarduino slim framework-arduinoespressif32"
 mkdir -p arduino-esp32/cores/esp32
 mkdir -p arduino-esp32/tools/partitions
 cp -rf ../components/arduino/tools arduino-esp32
@@ -24,31 +24,10 @@ cp -f ../components/arduino/pac* arduino-esp32
 rm -rf arduino-esp32/docs
 rm -rf arduino-esp32/tests
 rm -rf arduino-esp32/idf_component_examples
-rm -rf arduino-esp32/libraries/RainMaker
-rm -rf arduino-esp32/libraries/Insights
-rm -rf arduino-esp32/libraries/ESP_I2S
-rm -rf arduino-esp32/libraries/SPIFFS
-rm -rf arduino-esp32/libraries/BLE
-rm -rf arduino-esp32/libraries/SimpleBLE
-rm -rf arduino-esp32/libraries/BluetoothSerial
-rm -rf arduino-esp32/libraries/WiFiProv
-rm -rf arduino-esp32/libraries/WiFiClientSecure
-rm -rf arduino-esp32/libraries/NetworkClientSecure
-rm -rf arduino-esp32/libraries/ESP_SR
-rm -rf arduino-esp32/libraries/ESP_NOW
-rm -rf arduino-esp32/libraries/TFLiteMicro
-rm -rf arduino-esp32/libraries/OpenThread
-rm -rf arduino-esp32/libraries/ESP32
-rm -rf arduino-esp32/package
-rm -rf arduino-esp32/tools/esp32-arduino-libs
 rm -rf arduino-esp32/tools/*.exe
 rm -rf arduino-esp32/tools/esptool.py
 rm -rf arduino-esp32/tools/get.py
 rm -rf arduino-esp32/tools/ide-debug
-rm -rf arduino-esp32/tools/gen_insights_package.py
-rm -rf arduino-esp32/platform.txt
-rm -rf arduino-esp32/programmers.txt
-rm -rf arduino-esp32/boards.txt
 rm -rf arduino-esp32/package.json
 rm -rf arduino-esp32/*.md
 cp -Rf tools/esp32-arduino-libs arduino-esp32/tools/
