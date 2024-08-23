@@ -63,6 +63,8 @@ fi
 if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
         git submodule update --recursive
 	$IDF_PATH/install.sh
+        python3 ./tools/get_idf_ver.py -p "$IDF_PATH/tools/cmake/version.cmake"
+	echo "******* IDF version: $IDF_VERSION *********"
 
 	# 1) Temporarily patch the ESP32-S2 I2C LL driver to keep the clock source
         # 2) Temporarily fix for mmu map and late init of psram https://github.com/espressif/arduino-esp32/issues/9936
@@ -70,8 +72,6 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	patch -p1 -N -i $AR_PATCHES/esp32s2_i2c_ll_master_init.diff
         patch -p1 -N -i $AR_PATCHES/mmu_map.diff
 	patch -p1 -N -i $AR_PATCHES/lwip_max_tcp_pcb.diff
-        # Get the exact IDF version from file "version.txt"
-	export IDF_VERSION=$(<version.txt)
 	cd -
         # Patch to use the framework included "framework-arduinoespressif32-libs"
 	cd "$AR_COMPS/arduino"
