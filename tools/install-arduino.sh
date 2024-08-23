@@ -69,3 +69,21 @@ if [ -z $AR_BRANCH ]; then
 fi
 
 if [ $? -ne 0 ]; then exit 1; fi
+
+#
+# remove code and libraries not needed/wanted for a small framework
+#
+rm -rf "$AR_COMPS/arduino/docs"
+rm -rf "$AR_COMPS/arduino/idf_component_examples"
+rm -rf "$AR_COMPS/arduino/tests"
+rm -rf "$AR_COMPS/arduino/libraries/RainMaker"
+rm -rf "$AR_COMPS/arduino/libraries/Insights"
+rm -rf "$AR_COMPS/arduino/libraries/ESP32"
+rm -rf "$AR_COMPS/arduino/libraries/ESP_SR"
+rm -rf "$AR_COMPS/arduino/libraries/TFLiteMicro"
+rm -rf "$AR_COMPS/arduino/libraries/OpenThread"
+
+#
+# A modified Arduino component file is needed. Not wanted components removed. Else compile fails
+#
+cp -f "$AR_PATCHES/arduino_component.yml" "$AR_COMPS/idf_component.yml"
