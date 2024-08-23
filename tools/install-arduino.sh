@@ -86,5 +86,5 @@ rm -rf "$AR_COMPS/arduino/libraries/OpenThread"
 #
 # A modified Arduino component file is needed. Not wanted components removed. Else compile fails
 #
-cp -f "$AR_PATCHES/arduino_component.yml" "$AR_COMPS//arduino/idf_component.yml"
-cp -f "$AR_PATCHES/arduino_CMakeLists.txt" "$AR_COMPS//arduino/CMakeLists.txt"
+cp -f "$AR_PATCHES/arduino_component.yml" "$AR_COMPS/arduino/idf_component.yml"
+cp -f "$AR_PATCHES/arduino_CMakeLists.txt" "$AR_COMPS/arduino/CMakeLists.txt"
