@@ -62,9 +62,10 @@ fi
 
 if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
         git submodule update --recursive
-	export IDF_VERSION = $((python3 ./tools/get_idf_ver.py -p "$IDF_PATH/tools/cmake/version.cmake") 2> &1)
+        python3 ./tools/get_idf_ver.py -p "$IDF_PATH/tools/cmake/version.cmake" 2> version.txt
+	export IDF_VERSION=$(<version.txt)
+        echo "IDF version: $IDF_VERSION"
         $IDF_PATH/install.sh
-        # python3 ./tools/get_idf_ver.py -p "$IDF_PATH/tools/cmake/version.cmake"
 	echo "******* IDF version: $IDF_VERSION *********"
 
 	# 1) Temporarily patch the ESP32-S2 I2C LL driver to keep the clock source
