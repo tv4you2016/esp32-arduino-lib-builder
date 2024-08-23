@@ -70,14 +70,13 @@ if [ ! -x $idf_was_installed ] || [ ! -x $commit_predefined ]; then
 	patch -p1 -N -i $AR_PATCHES/esp32s2_i2c_ll_master_init.diff
         patch -p1 -N -i $AR_PATCHES/mmu_map.diff
 	patch -p1 -N -i $AR_PATCHES/lwip_max_tcp_pcb.diff
-        patch -p1 -N -i $AR_PATCHES/platformio-build.diff
-	cd -
-
         # Get the exact IDF version from file "version.txt"
-	cd $IDF_PATH
 	export IDF_VERSION=$(<version.txt)
-        echo "IDF version: $IDF_VERSION"
-	cd -  
+	cd -
+        # Patch to use the framework included "framework-arduinoespressif32-libs"
+	cd "$AR_COMPS/arduino"
+	patch -p1 -N -i $AR_PATCHES/platformio-build.diff
+	cd -
 fi
 
 #
