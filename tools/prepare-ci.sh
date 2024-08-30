@@ -2,7 +2,7 @@
 
 # Ubuntu setup
 # Change in archive-build.sh gawk to awk
-#sudo apt update && sudo apt install -y gperf cmake ninja-build
+#sudo apt update && sudo apt install -y gperf cmake ninja-build ccache
 #pip3 install wheel future pyelftools
 
 # MacOS (ARM) setup
