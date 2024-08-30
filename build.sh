@@ -18,6 +18,8 @@ fi
 # Fixes building some components. See https://github.com/espressif/arduino-esp32/issues/10167
 export IDF_COMPONENT_OVERWRITE_MANAGED_COMPONENTS=1
 
+CCACHE_ENABLE=1
+
 export TARGET="all"
 BUILD_TYPE="all"
 SKIP_ENV=0
@@ -26,8 +28,9 @@ ARCHIVE_OUT=1
 DEPLOY_OUT=0
 
 function print_help() {
-    echo "Usage: build.sh [-s] [-A <arduino_branch>] [-I <idf_branch>] [-i <idf_commit>] [-c <path>] [-t <target>] [-b <build|menuconfig|reconfigure|idf-libs|copy-bootloader|mem-variant>] [config ...]"
+    echo "Usage: build.sh [-s] [-n] [-A <arduino_branch>] [-I <idf_branch>] [-i <idf_commit>] [-c <path>] [-t <target>] [-b <build|menuconfig|reconfigure|idf-libs|copy-bootloader|mem-variant>] [config ...]"
     echo "       -s     Skip installing/updating of ESP-IDF and all components"
+    echo "       -n     Disable ccache"
     echo "       -A     Set which branch of arduino-esp32 to be used for compilation"
     echo "       -I     Set which branch of ESP-IDF to be used for compilation"
     echo "       -i     Set which commit of ESP-IDF to be used for compilation"
@@ -42,6 +45,9 @@ while getopts ":A:I:i:c:t:b:sde" opt; do
     case ${opt} in
         s )
             SKIP_ENV=1
+            ;;
+        n )
+            CCACHE_ENABLE=0
             ;;
         e )
             ARCHIVE_OUT=1
@@ -82,6 +88,8 @@ while getopts ":A:I:i:c:t:b:sde" opt; do
 done
 shift $((OPTIND -1))
 CONFIGS=$@
+
+export IDF_CCACHE_ENABLE=$CCACHE_ENABLE
 
 # Output the TARGET array
 echo "TARGET(s): ${TARGET[@]}"
