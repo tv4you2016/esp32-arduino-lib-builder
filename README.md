@@ -2,9 +2,9 @@
 
 This repository contains the scripts that produce the libraries included with Tasmota esp32-arduino.
 
-Tested on Ubuntu (32 and 64 bit), Raspberry Pi and MacOS.
+Tested on Ubuntu and MacOS.
 
-### Build on Ubuntu and Raspberry Pi
+### Build on Ubuntu
 ```bash
 sudo apt-get install git wget curl libssl-dev libncurses-dev flex bison gperf python python-pip python-setuptools python-serial python-click python-cryptography python-future python-pyparsing python-pyelftools cmake ninja-build ccache jq
 sudo pip install --upgrade pip
