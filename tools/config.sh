@@ -11,7 +11,7 @@ fi
 
 # Arduino branch to use
 if [ -z $AR_BRANCH ]; then
-    AR_BRANCH="release/3.1.x_p4_tasmota"
+    AR_BRANCH="feature/esp32p4"
 fi
 
 if [ -z $IDF_TARGET ]; then
