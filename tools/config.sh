@@ -11,7 +11,7 @@ fi
 
 # Arduino branch to use
 if [ -z $AR_BRANCH ]; then
-    AR_BRANCH="feature/esp32p4"
+    AR_BRANCH="release/v3.1.x"
 fi
 
 if [ -z $IDF_TARGET ]; then
