@@ -1,17 +1,24 @@
 #!/bin/bash
 
 if ! [ -x "$(command -v python3)" ]; then
-    echo "ERROR: python is not installed! Please install python first."
+    echo "ERROR: python is not installed or not in PATH! Please install python first."
     exit 1
 fi
 
 if ! [ -x "$(command -v git)" ]; then
-    echo "ERROR: git is not installed! Please install git first."
+    echo "ERROR: git is not installed or not in PATH! Please install git first."
+    exit 1
+fi
+
+if ! [ -x "$(command -v ninja)" ]; then
+    echo "ERROR: ninja is not installed or not in PATH! Please install ninja first."
     exit 1
 fi
 
 # Fixes building some components. See https://github.com/espressif/arduino-esp32/issues/10167
 export IDF_COMPONENT_OVERWRITE_MANAGED_COMPONENTS=1
+
+CCACHE_ENABLE=1
 
 export TARGET="esp32"
 BUILD_TYPE="all"
@@ -21,8 +28,9 @@ ARCHIVE_OUT=1
 DEPLOY_OUT=0
 
 function print_help() {
-    echo "Usage: build.sh [-s] [-A <arduino_branch>] [-I <idf_branch>] [-i <idf_commit>] [-c <path>] [-t <target>] [-b <build|menuconfig|reconfigure|idf-libs|copy-bootloader|mem-variant>] [config ...]"
+    echo "Usage: build.sh [-s] [-n] [-A <arduino_branch>] [-I <idf_branch>] [-i <idf_commit>] [-c <path>] [-t <target>] [-b <build|menuconfig|reconfigure|idf-libs|copy-bootloader|mem-variant>] [config ...]"
     echo "       -s     Skip installing/updating of ESP-IDF and all components"
+    echo "       -n     Disable ccache"
     echo "       -A     Set which branch of arduino-esp32 to be used for compilation"
     echo "       -I     Set which branch of ESP-IDF to be used for compilation"
     echo "       -i     Set which commit of ESP-IDF to be used for compilation"
@@ -37,6 +45,9 @@ while getopts ":A:I:i:c:t:b:sde" opt; do
     case ${opt} in
         s )
             SKIP_ENV=1
+            ;;
+        n )
+            CCACHE_ENABLE=0
             ;;
         e )
             ARCHIVE_OUT=1
@@ -78,6 +89,8 @@ done
 shift $((OPTIND -1))
 CONFIGS=$@
 
+export IDF_CCACHE_ENABLE=$CCACHE_ENABLE
+
 # Output the TARGET array
 echo "TARGET(s): ${TARGET[@]}"
 
@@ -85,7 +98,8 @@ mkdir -p dist
 rm -rf dependencies.lock
 
 if [ $SKIP_ENV -eq 0 ]; then
-    echo "* Installing ESP-IDF/Arduino and all components..."
+    echo "* Installing/Updating Arduino and ESP-IDF."
+
     # install arduino component
     ./tools/install-arduino.sh
     if [ $? -ne 0 ]; then exit 1; fi
@@ -137,7 +151,7 @@ if [ "$BUILD_TYPE" != "all" ]; then
 
         echo "idf.py -DIDF_TARGET=\"$target\" -DSDKCONFIG_DEFAULTS=\"$configs\" $BUILD_TYPE"
         rm -rf build sdkconfig
-        idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$configs" $BUILD_TYPE
+        COMPONENTS_SUBSET=full idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$configs" $BUILD_TYPE
         if [ $? -ne 0 ]; then exit 1; fi
     done
     exit 0
@@ -200,7 +214,7 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
 
     echo "* Build IDF-Libs: $idf_libs_configs"
     rm -rf build sdkconfig
-    idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$idf_libs_configs" idf-libs
+    COMPONENTS_SUBSET=full idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$idf_libs_configs" idf-libs
     if [ $? -ne 0 ]; then exit 1; fi
 
     # Build Bootloaders
@@ -212,7 +226,7 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
 
         echo "* Build BootLoader: $bootloader_configs"
         rm -rf build sdkconfig
-        idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$bootloader_configs" copy-bootloader
+        COMPONENTS_SUBSET=none idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$bootloader_configs" copy-bootloader
         if [ $? -ne 0 ]; then exit 1; fi
     done
 
@@ -225,7 +239,7 @@ for target_json in `jq -c '.targets[]' configs/builds.json`; do
 
         echo "* Build Memory Variant: $mem_configs"
         rm -rf build sdkconfig
-        idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$mem_configs" mem-variant
+        COMPONENTS_SUBSET=none idf.py -DIDF_TARGET="$target" -DSDKCONFIG_DEFAULTS="$mem_configs" mem-variant
         if [ $? -ne 0 ]; then exit 1; fi
     done
 done
