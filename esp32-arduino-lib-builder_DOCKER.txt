@@ -1,0 +1,45 @@
+https://github.com/raspiblitz/raspiblitz/issues/4170
+
+
+
+
+docker pull debian
+docker run -it debian /bin/bash
+
+
+apt-get update
+apt-get install sudo
+
+sudo apt update
+sudo apt dist-upgrade
+
+
+sudo apt-get install git wget curl libssl-dev libncurses-dev flex bison gperf python3-full python3-pip python3-setuptools python3-serial python3-click python3-cryptography python3-future python3-pyparsing python3-pyelftools cmake ninja-build ccache jq
+sudo apt-get install libusb-1.0-0 p7zip-full gawk python3-full nano
+
+
+sudo nano /etc/pip.conf
+
+[global]
+break-system-packages = true
+
+save
+
+sudo rm /usr/lib/python3.*/EXTERNALLY-MANAGED
+
+
+pip install --upgrade pip 
+;git clone https://github.com/Jason2866/esp32-arduino-lib-builder
+git clone --branch release/v4.4 https://github.com/espressif/esp32-arduino-lib-builder.git
+git clone --branch Arduino_2014 https://github.com/tv4you2016/esp32-arduino-lib-builder.git
+
+cd esp32-arduino-lib-builder
+./build.sh -t esp32
+
+
+/usr/bin/python3 /root/esp32-arduino-lib-builder/esp-idf/tools/idf_tools.py install
+
+
+
+
+

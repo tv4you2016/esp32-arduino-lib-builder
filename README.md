@@ -27,3 +27,6 @@ board = every esp32 board can be used
 build_flags = -DFRAMEWORK_ARDUINO_SOLO1
 ```
 The frameworks are here [https://github.com/tasmota/arduino-esp32/releases](https://github.com/tasmota/arduino-esp32/releases)
+
+
+Clear all tags [https://stackoverflow.com/questions/44702757/how-to-remove-all-git-origin-and-local-tags](https://stackoverflow.com/questions/44702757/how-to-remove-all-git-origin-and-local-tags)
